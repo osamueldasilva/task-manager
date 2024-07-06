@@ -50,7 +50,7 @@ export const mockTaskList: Task[] = [
     description:
       "Desenvolver o design responsivo e acessível para a tela de login do sistema.",
     priority: "Alta",
-    dueDate: "2024-07-10",
+    dueDate: "10/07/2024",
     status: "Não iniciado",
   },
   {
@@ -59,7 +59,7 @@ export const mockTaskList: Task[] = [
     description:
       "Verificar se todos os requisitos funcionais foram atendidos conforme especificado no documento.",
     priority: "Média",
-    dueDate: "2024-07-15",
+    dueDate: "15/07/2024",
     status: "Em andamento",
   },
   {
@@ -68,7 +68,7 @@ export const mockTaskList: Task[] = [
     description:
       "Desenvolver a funcionalidade de login e cadastro de usuários.",
     priority: "Alta",
-    dueDate: "2024-07-20",
+    dueDate: "20/07/2024",
     status: "Concluído",
   },
   {
@@ -76,7 +76,7 @@ export const mockTaskList: Task[] = [
     title: "Testar API",
     description: "Realizar testes unitários e de integração para a API.",
     priority: "Média",
-    dueDate: "2024-07-18",
+    dueDate: "18/07/2024",
     status: "Não iniciado",
   },
   {
@@ -84,7 +84,7 @@ export const mockTaskList: Task[] = [
     title: "Refatorar código",
     description: "Melhorar a estrutura e legibilidade do código existente.",
     priority: "Baixa",
-    dueDate: "2024-07-22",
+    dueDate: "22/07/2024",
     status: "Em andamento",
   },
   {
@@ -92,7 +92,7 @@ export const mockTaskList: Task[] = [
     title: "Documentar funcionalidades",
     description: "Criar documentação detalhada das novas funcionalidades.",
     priority: "Alta",
-    dueDate: "2024-07-25",
+    dueDate: "25/07/2024",
     status: "Não iniciado",
   },
   {
@@ -100,7 +100,7 @@ export const mockTaskList: Task[] = [
     title: "Configurar ambiente de produção",
     description: "Configurar servidores e deploy do ambiente de produção.",
     priority: "Média",
-    dueDate: "2024-07-30",
+    dueDate: "30/07/2024",
     status: "Em andamento",
   },
   {
@@ -108,7 +108,7 @@ export const mockTaskList: Task[] = [
     title: "Revisar código de terceiros",
     description: "Verificar e integrar código desenvolvido por parceiros.",
     priority: "Baixa",
-    dueDate: "2024-07-28",
+    dueDate: "28/07/2024",
     status: "Concluído",
   },
   {
@@ -116,7 +116,7 @@ export const mockTaskList: Task[] = [
     title: "Planejar sprints",
     description: "Definir e planejar as próximas sprints do projeto.",
     priority: "Alta",
-    dueDate: "2024-08-01",
+    dueDate: "01/08/2024",
     status: "Não iniciado",
   },
   {
@@ -124,7 +124,7 @@ export const mockTaskList: Task[] = [
     title: "Monitorar desempenho do sistema",
     description: "Implementar ferramentas de monitoramento de desempenho.",
     priority: "Média",
-    dueDate: "2024-08-05",
+    dueDate: "05/08/2024",
     status: "Em andamento",
   },
   {
@@ -132,7 +132,7 @@ export const mockTaskList: Task[] = [
     title: "Implementar cache",
     description: "Adicionar caching para melhorar a performance do sistema.",
     priority: "Alta",
-    dueDate: "2024-08-10",
+    dueDate: "10/08/2024",
     status: "Concluído",
   },
   {
@@ -140,7 +140,7 @@ export const mockTaskList: Task[] = [
     title: "Atualizar bibliotecas",
     description: "Atualizar dependências e bibliotecas do projeto.",
     priority: "Média",
-    dueDate: "2024-08-15",
+    dueDate: "15/08/2024",
     status: "Não iniciado",
   },
   {
@@ -148,7 +148,7 @@ export const mockTaskList: Task[] = [
     title: "Realizar backup",
     description: "Configurar e executar backups regulares do banco de dados.",
     priority: "Alta",
-    dueDate: "2024-08-20",
+    dueDate: "20/08/2024",
     status: "Em andamento",
   },
   {
@@ -156,7 +156,7 @@ export const mockTaskList: Task[] = [
     title: "Implementar notificações",
     description: "Adicionar sistema de notificações para alertas importantes.",
     priority: "Baixa",
-    dueDate: "2024-08-25",
+    dueDate: "25/08/2024",
     status: "Concluído",
   },
   {
@@ -165,7 +165,7 @@ export const mockTaskList: Task[] = [
     description:
       "Identificar e corrigir bugs que afetam o funcionamento do sistema.",
     priority: "Alta",
-    dueDate: "2024-08-30",
+    dueDate: "30/08/2024",
     status: "Não iniciado",
   },
   {
@@ -174,7 +174,7 @@ export const mockTaskList: Task[] = [
     description:
       "Realizar treinamentos sobre novas funcionalidades para a equipe.",
     priority: "Média",
-    dueDate: "2024-09-05",
+    dueDate: "05/09/2024",
     status: "Em andamento",
   },
   {
@@ -182,7 +182,7 @@ export const mockTaskList: Task[] = [
     title: "Melhorar UI/UX",
     description: "Aprimorar a experiência e interface do usuário.",
     priority: "Alta",
-    dueDate: "2024-09-10",
+    dueDate: "10/09/2024",
     status: "Concluído",
   },
   {
@@ -190,7 +190,7 @@ export const mockTaskList: Task[] = [
     title: "Realizar testes de carga",
     description: "Testar o sistema sob condições de alta carga.",
     priority: "Média",
-    dueDate: "2024-09-15",
+    dueDate: "15/09/2024",
     status: "Não iniciado",
   },
   {
@@ -198,7 +198,7 @@ export const mockTaskList: Task[] = [
     title: "Integrar sistema de pagamento",
     description: "Adicionar integração com plataforma de pagamento.",
     priority: "Alta",
-    dueDate: "2024-09-20",
+    dueDate: "20/09/2024",
     status: "Em andamento",
   },
   {
@@ -206,7 +206,7 @@ export const mockTaskList: Task[] = [
     title: "Atualizar design do dashboard",
     description: "Redesenhar o dashboard para melhor visualização de dados.",
     priority: "Média",
-    dueDate: "2024-09-25",
+    dueDate: "25/09/2024",
     status: "Concluído",
   },
 ];

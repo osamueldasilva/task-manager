@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { FormCreateTask } from "./form";
+
+export const metadata: Metadata = {
+  title: "Criar Nova Tarefa",
+};
 
 export default function CreateTask() {
   return (

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -28,23 +27,27 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CreateTasks, resolver } from "@/schemas/task";
+import { Task } from "@/types/request";
 
-export function FormCreateTask() {
+export function FormEditTask({ data }: { data?: Task }) {
+  const defaultDueDate = data?.dueDate
+    ? parse(data.dueDate, "dd/MM/yyyy", new Date())
+    : undefined;
+
   const form = useForm<CreateTasks>({
     resolver,
     defaultValues: {
-      title: "",
-      description: "",
-      priority: "",
+      title: data?.title,
+      description: data?.description,
+      priority: data?.priority,
+      dataConclusion: defaultDueDate,
     },
   });
 
-  function onSubmit(data: CreateTasks) {
-    console.log(data);
-  }
+  function onSubmit(data: CreateTasks) {}
   return (
     <Form {...form}>
       <form

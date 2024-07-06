@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const messages = {
   title: "O título da tarefa é obrigatório.",
   description: "A descrição da tarefa é obrigatório.",
-  priority: "É obrigatório selecionar a prioridade",
-  dataConclusion: "É obrigatório selecionar a data para conclusão",
+  priority: "É obrigatório selecionar a prioridade.",
+  dataConclusion: "É obrigatório selecionar a data para conclusão.",
 };
 
 export const schemaCreateTask = z.object({
