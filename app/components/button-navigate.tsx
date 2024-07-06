@@ -9,7 +9,7 @@ export default function ButtonNavigate({ value }: { value: string }) {
 
   function handleNavigate() {
     starTransition(() => {
-      push("/task/creat");
+      push("/task/create");
     });
   }
 
