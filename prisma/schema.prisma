@@ -6,8 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
-  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 datasource db {
