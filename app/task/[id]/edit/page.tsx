@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function EditTask({ params }: RequestParameters) {
-  const response = mockTaskList.find((task) => task.id === params.id);
+  const response = mockTaskList.find((task) => task.id === parseInt(params.id));
 
   return (
     <main className="flex flex-col items-center px-4 py-3 md:px-8 lg:px-16">

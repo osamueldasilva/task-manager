@@ -16,7 +16,7 @@ export default function Boards({ task }: { task: Task[] }) {
 
     const taskId = e.dataTransfer.getData("taskId");
 
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+    const taskIndex = tasks.findIndex((task) => task.id === parseInt(taskId));
     if (taskIndex > -1) {
       const updatedTasks = [...tasks];
       updatedTasks[taskIndex] = { ...updatedTasks[taskIndex], status };

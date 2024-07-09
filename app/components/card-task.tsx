@@ -7,11 +7,11 @@ import { CircleAlert } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 export function CardTasks({ tasks }: { tasks: Task[] }) {
-  const [draggingTaskId, setDraggingTaskId] = useState<string | null>(null);
+  const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
 
   const { toast } = useToast();
-  function handleDragStart(e: React.DragEvent<HTMLDivElement>, taskId: string) {
-    e.dataTransfer.setData("taskId", taskId);
+  function handleDragStart(e: React.DragEvent<HTMLDivElement>, taskId: number) {
+    e.dataTransfer.setData("taskId", taskId.toString());
 
     setDraggingTaskId(taskId);
   }

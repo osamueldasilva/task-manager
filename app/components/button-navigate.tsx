@@ -26,7 +26,7 @@ export default function ButtonNavigate({ value }: { value: string }) {
   );
 }
 
-export function NavigateEdit({ id }: { id: string }) {
+export function NavigateEdit({ id }: { id: number }) {
   const [isPending, starTransition] = useTransition();
   const { push } = useRouter();
   function handleNavigate() {
