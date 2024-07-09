@@ -15,8 +15,16 @@ datasource db {
 
 model User {
   id       Int    @default(autoincrement()) @id
-  username String
-  email    String
+  username String @unique
+  email    String @unique
   password String
   name     String
+}
+model Task {
+  id       Int    @default(autoincrement()) @id
+  title String
+  description String 
+  priority String 
+  dueDate  String
+  status   String
 }

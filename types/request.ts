@@ -39,7 +39,7 @@ export type UserSettings = {
 
 // Tipagem para a Tarefa
 export type Task = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   priority: "Alta" | "Média" | "Baixa";
