@@ -13,7 +13,7 @@ export default function Task() {
 
   return (
     <main>
-      <header className="">
+      <header className="px-6">
         <ButtonNavigate value="Nova tarefa" />
       </header>
       <div className="grid grid-cols-3 gap-4 p-4">

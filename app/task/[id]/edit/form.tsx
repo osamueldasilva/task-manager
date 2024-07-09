@@ -52,7 +52,7 @@ export function FormEditTask({ data }: { data?: Task }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/4 flex flex-col gap-2"
+        className="w-3/4 max-sm:w-11/12 px-4 flex flex-col gap-2"
       >
         <div>
           <FormField
@@ -163,7 +163,10 @@ export function FormEditTask({ data }: { data?: Task }) {
           )}
         />
 
-        <Button type="submit" className="bg-green-500 hover:bg-green-500/80">
+        <Button
+          type="submit"
+          className="bg-green-500 hover:bg-green-500/80 text-white"
+        >
           Salvar
         </Button>
       </form>

@@ -9,6 +9,7 @@ export type RegisterForm = {
   username: string;
   email: string;
   password: string;
+  name: string;
 };
 
 // Tipagens para o formulário de Criação de Tarefas

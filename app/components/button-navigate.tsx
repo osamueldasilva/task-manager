@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Edit, Loader } from "lucide-react";
+import { CirclePlus, Edit, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
@@ -20,6 +20,7 @@ export default function ButtonNavigate({ value }: { value: string }) {
       className="text-white"
       isLoading={isPending}
     >
+      {!isPending && <CirclePlus className="mr-2 h-5 w-5" />}
       {value}
     </Button>
   );

@@ -14,6 +14,13 @@ export const mockLoginForm: LoginForm = {
 
 export const mockRegisterForm: RegisterForm = {
   username: "samuel.silva",
+  name: "samuel Barbosa",
+  email: "samuel.silva@email.com",
+  password: "novaSenha456",
+};
+export const mockDataUser: RegisterForm = {
+  username: "samuel.silva",
+  name: "samuel Barbosa",
   email: "samuel.silva@email.com",
   password: "novaSenha456",
 };
