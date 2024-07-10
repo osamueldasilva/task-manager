@@ -30,16 +30,15 @@ import {
 import { format, parse } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CreateTasks, resolver } from "@/schemas/task";
-import { ObjectTask, Task } from "@/types/request";
+import { ObjectTask } from "@/types/request";
 import { toast } from "sonner";
 import { useTransition } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { put } from "@/lib/request";
 
 export function FormEditTask({ data }: { data?: ObjectTask }) {
   const [isPending, startTransition] = useTransition();
   const { push } = useRouter();
-  const searchParams = useParams();
 
   const defaultDueDate = data
     ? parse(data.dueDate, "dd/MM/yyyy", new Date())

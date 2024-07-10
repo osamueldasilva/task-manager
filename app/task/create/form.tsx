@@ -35,12 +35,11 @@ import { ptBR } from "date-fns/locale";
 import { CreateTasks, resolver } from "@/schemas/task";
 import { useTransition } from "react";
 import { poster } from "@/lib/request";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export function FormCreateTask() {
   const [isPending, startTransition] = useTransition();
   const { push } = useRouter();
-  const params = useSearchParams();
   const form = useForm<CreateTasks>({
     resolver,
     defaultValues: {
