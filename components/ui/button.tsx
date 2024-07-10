@@ -46,6 +46,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
+        disabled={isLoading}
         className={cn(
           buttonVariants({ variant, size, className }),
           "ease-linear duration-300"

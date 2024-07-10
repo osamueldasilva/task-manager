@@ -30,10 +30,18 @@ import {
 import { format, parse } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CreateTasks, resolver } from "@/schemas/task";
-import { Task } from "@/types/request";
+import { ObjectTask, Task } from "@/types/request";
+import { toast } from "sonner";
+import { useTransition } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { put } from "@/lib/request";
 
-export function FormEditTask({ data }: { data?: Task }) {
-  const defaultDueDate = data?.dueDate
+export function FormEditTask({ data }: { data?: ObjectTask }) {
+  const [isPending, startTransition] = useTransition();
+  const { push } = useRouter();
+  const searchParams = useParams();
+
+  const defaultDueDate = data
     ? parse(data.dueDate, "dd/MM/yyyy", new Date())
     : undefined;
 
@@ -47,7 +55,33 @@ export function FormEditTask({ data }: { data?: Task }) {
     },
   });
 
-  function onSubmit(data: CreateTasks) {}
+  function onSubmit(dataForm: CreateTasks) {
+    startTransition(async () => {
+      const formattedDate = format(dataForm.dataConclusion, "dd/MM/yyyy", {
+        locale: ptBR,
+      });
+
+      const body = {
+        id: data?.id,
+        title: dataForm.title,
+        description: dataForm.description,
+        priority: dataForm.priority,
+        dueDate: formattedDate,
+        status: data?.status,
+      };
+
+      const { data: response } = await put({
+        body,
+        url: "/api/task",
+        tag: "get-task",
+      });
+
+      if (response.status === 200) {
+        toast.success(response.message);
+        push("/task");
+      }
+    });
+  }
   return (
     <Form {...form}>
       <form
@@ -166,6 +200,7 @@ export function FormEditTask({ data }: { data?: Task }) {
         <Button
           type="submit"
           className="bg-green-500 hover:bg-green-500/80 text-white"
+          isLoading={isPending}
         >
           Salvar
         </Button>

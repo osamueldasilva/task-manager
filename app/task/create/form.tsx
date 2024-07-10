@@ -1,6 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
 import {
   Form,
   FormControl,
@@ -31,19 +33,46 @@ import {
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CreateTasks, resolver } from "@/schemas/task";
+import { useTransition } from "react";
+import { poster } from "@/lib/request";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 export function FormCreateTask() {
+  const [isPending, startTransition] = useTransition();
+  const { push } = useRouter();
+  const params = useSearchParams();
   const form = useForm<CreateTasks>({
     resolver,
     defaultValues: {
       title: "",
       description: "",
-      priority: "",
+      priority: "Média",
     },
   });
 
   function onSubmit(data: CreateTasks) {
-    console.log(data);
+    startTransition(async () => {
+      const formattedDate = format(data.dataConclusion, "dd/MM/yyyy", {
+        locale: ptBR,
+      });
+
+      const body = {
+        title: data.title,
+        description: data.description,
+        priority: data.priority,
+        dueDate: formattedDate,
+      };
+
+      const { data: response } = await poster({
+        body,
+        url: "/api/task",
+        tag: "get-task",
+      });
+      if (response.status === 200) {
+        toast.success(response.message);
+        push("/task");
+      }
+    });
   }
   return (
     <Form {...form}>
@@ -162,7 +191,8 @@ export function FormCreateTask() {
 
         <Button
           type="submit"
-          className="bg-green-500 hover:bg-green-500/80 text-white"
+          className="bg-green-500 hover:bg-green-500/80 text-white w-full"
+          isLoading={isPending}
         >
           Salvar
         </Button>

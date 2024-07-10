@@ -1,12 +1,12 @@
 "use client";
 
-import { Task } from "@/types/request";
+import { ObjectTask, Task } from "@/types/request";
 import { NavigateEdit } from "./button-navigate";
 import { useState } from "react";
 import { CircleAlert } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
-export function CardTasks({ tasks }: { tasks: Task[] }) {
+export function CardTasks({ tasks }: { tasks: ObjectTask[] }) {
   const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
 
   const { toast } = useToast();

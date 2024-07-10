@@ -38,11 +38,15 @@ export type UserSettings = {
 };
 
 // Tipagem para a Tarefa
-export type Task = {
+export type ObjectTask = {
   id: number;
   title: string;
   description: string;
   priority: "Alta" | "Média" | "Baixa";
   dueDate: string;
   status: "Não iniciado" | "Em andamento" | "Concluído";
+};
+
+export type Task = {
+  task: ObjectTask[];
 };

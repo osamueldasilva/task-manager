@@ -1,10 +1,10 @@
 "use client";
-import { Task } from "@/types/request";
+import { ObjectTask, Task } from "@/types/request";
 import { CardTasks } from "./card-task";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
-export default function Boards({ task }: { task: Task[] }) {
+export default function Boards({ task }: { task: ObjectTask[] }) {
   const [tasks, setTasks] = useState(task);
   const { toast } = useToast();
 
@@ -39,7 +39,7 @@ export default function Boards({ task }: { task: Task[] }) {
           <div className="bg-white text-blue-700 w-7 flex justify-center rounded-full font-semibold">
             {notStarted.length}
           </div>
-          <h2 className="text-lg text-white">Não Iniciado</h2>
+          <h2 className="text-lg text-white truncate">Não Iniciado</h2>
         </div>
         <CardTasks tasks={notStarted} />
       </div>

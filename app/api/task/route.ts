@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const task = await prisma.task.findMany();
+  console.log("🚀 ~ GET ~ task:", task);
 
   return NextResponse.json({ task });
 }
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
     const { description, dueDate, priority, status, title }: Task =
       await req.json();
 
-    if (!description || !dueDate || !priority || !status || !title) {
+    if (!description || !dueDate || !priority || !title) {
       return NextResponse.json(
         { message: "Esta faltando informação no body. Por favor, verifique." },
         { status: 400 }
@@ -21,7 +22,6 @@ export async function POST(req: NextRequest) {
     }
 
     const validPriorities = ["Alta", "Média", "Baixa"];
-    const validStatuses = ["Não iniciado", "Em andamento", "Concluído"];
 
     if (!validPriorities.includes(priority)) {
       return NextResponse.json(
@@ -32,28 +32,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!validStatuses.includes(status)) {
-      return NextResponse.json(
-        {
-          message:
-            "O campo STATUS tem que ser igual a Não iniciado, Em andamento ou Concluído.",
-        },
-        { status: 400 }
-      );
-    }
-
-    const task = await prisma.task.create({
+    await prisma.task.create({
       data: {
         description,
         dueDate,
         priority,
-        status,
+        status: "Não iniciado",
         title,
       },
     });
 
-    return NextResponse.json({ message: "Tarefa criada com sucesso!", task });
+    return NextResponse.json({
+      message: "Tarefa criada com sucesso!",
+      status: 200,
+    });
   } catch (error) {
+    console.log("🚀 ~ POST ~ error:", error);
     return NextResponse.json(
       {
         message:
@@ -113,7 +107,7 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const task = await prisma.task.update({
+    await prisma.task.update({
       where: { id },
       data: {
         description,
@@ -126,7 +120,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({
       message: "Tarefa atualizada com sucesso!",
-      task,
+      status: 200,
     });
   } catch (error) {
     return NextResponse.json(
