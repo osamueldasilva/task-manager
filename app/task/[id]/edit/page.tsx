@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { FormEditTask } from "./form";
 import { RequestParameters } from "@/types/general";
-import { mockTaskList } from "@/app/mocks/teste";
 import { Task } from "@/types/request";
 import { fetcher } from "@/lib/request";
 
