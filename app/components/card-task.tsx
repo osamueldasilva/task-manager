@@ -4,12 +4,10 @@ import { ObjectTask, Task } from "@/types/request";
 import { NavigateEdit } from "./button-navigate";
 import { useState } from "react";
 import { CircleAlert } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
 
 export function CardTasks({ tasks }: { tasks: ObjectTask[] }) {
   const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
 
-  const { toast } = useToast();
   function handleDragStart(e: React.DragEvent<HTMLDivElement>, taskId: number) {
     e.dataTransfer.setData("taskId", taskId.toString());
 
@@ -18,10 +16,6 @@ export function CardTasks({ tasks }: { tasks: ObjectTask[] }) {
 
   function handleDragEnd() {
     setDraggingTaskId(null);
-    toast({
-      title: "handleDragEnd",
-      description: "Friday, February 10, 2023 at 5:57 PM",
-    });
   }
 
   const priorityOrder = {

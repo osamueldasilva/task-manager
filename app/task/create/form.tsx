@@ -36,6 +36,7 @@ import { CreateTasks, resolver } from "@/schemas/task";
 import { useTransition } from "react";
 import { poster } from "@/lib/request";
 import { useRouter } from "next/navigation";
+import ButtonSave from "@/app/components/button-save";
 
 export function FormCreateTask() {
   const [isPending, startTransition] = useTransition();
@@ -188,13 +189,11 @@ export function FormCreateTask() {
           )}
         />
 
-        <Button
-          type="submit"
-          className="bg-green-500 hover:bg-green-500/80 text-white w-full"
+        <ButtonSave
           isLoading={isPending}
-        >
-          Salvar
-        </Button>
+          action="add"
+          fn={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

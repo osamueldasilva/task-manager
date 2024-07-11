@@ -35,6 +35,7 @@ import { toast } from "sonner";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { put } from "@/lib/request";
+import ButtonSave from "@/app/components/button-save";
 
 export function FormEditTask({ data }: { data?: ObjectTask }) {
   const [isPending, startTransition] = useTransition();
@@ -196,13 +197,11 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
           )}
         />
 
-        <Button
-          type="submit"
-          className="bg-green-500 hover:bg-green-500/80 text-white"
+        <ButtonSave
           isLoading={isPending}
-        >
-          Salvar
-        </Button>
+          action="alter"
+          fn={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

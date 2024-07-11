@@ -2,13 +2,13 @@
 import { ObjectTask, Task } from "@/types/request";
 import { CardTasks } from "./card-task";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { put } from "@/lib/request";
+import { toast } from "sonner";
 
 export default function Boards({ task }: { task: ObjectTask[] }) {
   const [tasks, setTasks] = useState(task);
-  const { toast } = useToast();
 
-  function handleDrop(
+  async function handleDrop(
     e: React.DragEvent<HTMLDivElement>,
     status: "Não iniciado" | "Em andamento" | "Concluído"
   ) {
@@ -20,7 +20,17 @@ export default function Boards({ task }: { task: ObjectTask[] }) {
     if (taskIndex > -1) {
       const updatedTasks = [...tasks];
       updatedTasks[taskIndex] = { ...updatedTasks[taskIndex], status };
-      setTasks(updatedTasks);
+      const taskUpdated = updatedTasks[taskIndex];
+      const { data } = await put({
+        body: taskUpdated,
+        tag: "get-task",
+        url: "/api/task",
+      });
+
+      if (data.status === 200) {
+        toast.success(data.message);
+        setTasks(updatedTasks);
+      }
     }
   }
 
