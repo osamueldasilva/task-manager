@@ -10,14 +10,14 @@ export const metadata: Metadata = {
 
 export default async function TaskPage() {
   const { data } = await fetcher<Task>({ url: "/api/task", tag: "get-task" });
-
+  console.log(data.task.length);
   return (
     <main>
       <header className="px-6">
         <ButtonNavigate value="Nova tarefa" />
       </header>
       <div className="grid grid-cols-3 gap-2 p-2">
-        <Boards task={data.task} />
+        <Boards data={data.task} />
       </div>
     </main>
   );

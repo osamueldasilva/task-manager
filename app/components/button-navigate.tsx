@@ -40,7 +40,10 @@ export function NavigateEdit({ id }: { id: number }) {
       {isPending ? (
         <Loader className="h-4 w-4 animate-spin" />
       ) : (
-        <Edit onClick={handleNavigate} className="h-4 w-4 cursor-pointer" />
+        <Edit
+          onClick={handleNavigate}
+          className="h-4 w-4 cursor-pointer hover:text-blue-500"
+        />
       )}
     </>
   );

@@ -46,7 +46,7 @@ export function FormCreateTask() {
     defaultValues: {
       title: "",
       description: "",
-      priority: "Média",
+      priority: "",
     },
   });
 
@@ -67,6 +67,7 @@ export function FormCreateTask() {
         body,
         url: "/api/task",
         tag: "get-task",
+        pathName: "/task",
       });
       if (response.status === 200) {
         toast.success(response.message);

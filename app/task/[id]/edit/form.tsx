@@ -38,6 +38,7 @@ import { put } from "@/lib/request";
 import ButtonSave from "@/app/components/button-save";
 
 export function FormEditTask({ data }: { data?: ObjectTask }) {
+  console.log("🚀 ~ FormEditTask ~ data:", data);
   const [isPending, startTransition] = useTransition();
   const { push } = useRouter();
 
@@ -74,6 +75,7 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
         body,
         url: "/api/task",
         tag: "get-task",
+        pathName: "/task",
       });
 
       if (response.status === 200) {

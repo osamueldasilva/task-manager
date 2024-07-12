@@ -66,7 +66,10 @@ export async function DELETE(req: NextRequest) {
         id,
       },
     });
-    return NextResponse.json({ message: "Tarefa deletada com sucesso!", task });
+    return NextResponse.json({
+      message: "Tarefa deletada com sucesso!",
+      status: 200,
+    });
   } catch (error) {
     return NextResponse.json({ message: "Erro ao deletar" }, { status: 400 });
   }

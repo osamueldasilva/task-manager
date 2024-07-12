@@ -1,5 +1,7 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { ModeToggle } from "@/components/dark-mode/dark-mode";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Quicksand } from "next/font/google";
 import { mockDataUser } from "../mocks/teste";
@@ -29,8 +31,30 @@ export default function Header() {
 
   const initials = getInitials(data.name);
 
+  const [isSticky, setIsSticky] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="px-6 py-2 flex justify-between">
+    <header
+      className={`px-6 py-2 flex justify-between items-center transition-all duration-500 ${
+        isSticky &&
+        "sticky top-0 backdrop-filter backdrop-blur-md bg-transparent shadow-lg z-10"
+      }`}
+    >
       <h1 className={`text-3xl font-semibold ${quicksand.className}`}>
         TaskMaster
       </h1>

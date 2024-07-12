@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 
 export type FetcherResponse<T> = {
   data: T;
@@ -20,7 +20,7 @@ export async function fetcher<T>({
     const response = await fetch(urlData, {
       method: "GET",
       next: {
-        tags: [tag],
+        tags: ["get-task"],
       },
     });
 
@@ -36,10 +36,12 @@ export async function poster<T>({
   url,
   body,
   tag,
+  pathName,
 }: {
   url: string;
   body: any;
   tag: string;
+  pathName: string;
 }) {
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
@@ -51,6 +53,7 @@ export async function poster<T>({
 
     const responseData = await response.json();
     revalidateTag(tag);
+    revalidatePath(pathName);
     return { data: responseData, success: true };
   } catch (error) {
     return { error, data: undefined as T, success: false };
@@ -60,10 +63,12 @@ export async function put<T>({
   url,
   body,
   tag,
+  pathName,
 }: {
   url: string;
   body: any;
   tag: string;
+  pathName: string;
 }) {
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
@@ -75,6 +80,36 @@ export async function put<T>({
 
     const responseData = await response.json();
     revalidateTag(tag);
+    revalidatePath(pathName);
+    return { data: responseData, success: true };
+  } catch (error) {
+    return { error, data: undefined as T, success: false };
+  }
+}
+
+export async function deleter<T>({
+  url,
+  tag,
+  pathName,
+  body,
+}: {
+  url: string;
+  tag: string;
+  pathName: string;
+  body: any;
+}) {
+  const urlData = process.env.NEXT_PUBLIC_API_URL + url;
+
+  try {
+    const response = await fetch(urlData, {
+      method: "DELETE",
+      body: JSON.stringify(body),
+    });
+
+    const responseData = await response.json();
+    if (response.ok) {
+      revalidatePath(pathName);
+    }
     return { data: responseData, success: true };
   } catch (error) {
     return { error, data: undefined as T, success: false };
