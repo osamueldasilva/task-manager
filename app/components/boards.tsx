@@ -27,16 +27,15 @@ export default function Boards({ data }: { data: ObjectTask[] }) {
       const updatedTasks = [...tasks];
       updatedTasks[taskIndex] = { ...updatedTasks[taskIndex], status };
       const taskUpdated = updatedTasks[taskIndex];
+      setTasks(updatedTasks);
       const { data } = await put({
         body: taskUpdated,
-        tag: "get-task",
         url: "/api/task",
         pathName: "/task",
       });
 
       if (data.status === 200) {
         toast.success(data.message);
-        setTasks(updatedTasks);
       }
     }
 

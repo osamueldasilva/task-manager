@@ -9,8 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TaskPage() {
-  const { data } = await fetcher<Task>({ url: "/api/task", tag: "get-task" });
-  console.log(data.task.length);
+  const { data } = await fetcher<Task>({ url: "/api/task" });
   return (
     <main>
       <header className="px-6">

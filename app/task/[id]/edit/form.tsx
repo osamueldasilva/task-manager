@@ -74,7 +74,6 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
       const { data: response } = await put({
         body,
         url: "/api/task",
-        tag: "get-task",
         pathName: "/task",
       });
 

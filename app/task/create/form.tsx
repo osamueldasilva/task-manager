@@ -66,7 +66,6 @@ export function FormCreateTask() {
       const { data: response } = await poster({
         body,
         url: "/api/task",
-        tag: "get-task",
         pathName: "/task",
       });
       if (response.status === 200) {
@@ -179,7 +178,9 @@ export function FormCreateTask() {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) => date <= new Date()}
+                    disabled={(date) =>
+                      date.getTime() < new Date().setHours(0, 0, 0, 0)
+                    }
                     initialFocus
                   />
                 </PopoverContent>

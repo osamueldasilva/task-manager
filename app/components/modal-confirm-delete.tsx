@@ -25,7 +25,7 @@ export default function ModalConfirmDelete({ id }: { id: ObjectTask }) {
       const { data } = await deleter({
         url: "/api/task",
         pathName: "/task",
-        tag: "get-task",
+
         body: id,
       });
 

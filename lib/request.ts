@@ -1,6 +1,7 @@
 "use server";
 
-import { revalidateTag, revalidatePath } from "next/cache";
+import axios from "axios";
+import { revalidatePath } from "next/cache";
 
 export type FetcherResponse<T> = {
   data: T;
@@ -10,23 +11,19 @@ export type FetcherResponse<T> = {
 
 export async function fetcher<T>({
   url,
-  tag,
 }: {
   url: string;
-  tag: string;
 }): Promise<FetcherResponse<T>> {
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
   try {
-    const response = await fetch(urlData, {
-      method: "GET",
-      next: {
-        tags: ["get-task"],
+    const response = await axios.get<T>(urlData, {
+      headers: {
+        "Cache-Control": "no-cache",
       },
+      params: {},
     });
 
-    const responseData: T = await response.json();
-
-    return { data: responseData };
+    return { data: response.data };
   } catch (error) {
     return { error, data: undefined as T };
   }
@@ -35,53 +32,52 @@ export async function fetcher<T>({
 export async function poster<T>({
   url,
   body,
-  tag,
+
   pathName,
 }: {
   url: string;
   body: any;
-  tag: string;
+
   pathName: string;
 }) {
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
   try {
-    const response = await fetch(urlData, {
-      method: "POST",
-      body: JSON.stringify(body),
+    const response = await axios.post(urlData, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
-    const responseData = await response.json();
-    revalidateTag(tag);
     revalidatePath(pathName);
-    return { data: responseData, success: true };
+    return { data: response.data, success: true };
   } catch (error) {
     return { error, data: undefined as T, success: false };
   }
 }
+
 export async function put<T>({
   url,
   body,
-  tag,
+
   pathName,
 }: {
   url: string;
   body: any;
-  tag: string;
+
   pathName: string;
 }) {
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
   try {
-    const response = await fetch(urlData, {
-      method: "PUT",
-      body: JSON.stringify(body),
+    const response = await axios.put(urlData, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
-    const responseData = await response.json();
-    revalidateTag(tag);
     revalidatePath(pathName);
-    return { data: responseData, success: true };
+    return { data: response.data, success: true };
   } catch (error) {
     return { error, data: undefined as T, success: false };
   }
@@ -89,28 +85,29 @@ export async function put<T>({
 
 export async function deleter<T>({
   url,
-  tag,
+
   pathName,
   body,
 }: {
   url: string;
-  tag: string;
+
   pathName: string;
   body: any;
 }) {
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
   try {
-    const response = await fetch(urlData, {
-      method: "DELETE",
-      body: JSON.stringify(body),
+    const response = await axios.delete(urlData, {
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
-    const responseData = await response.json();
-    if (response.ok) {
+    if (response.status === 200) {
       revalidatePath(pathName);
     }
-    return { data: responseData, success: true };
+    return { data: response.data, success: true };
   } catch (error) {
     return { error, data: undefined as T, success: false };
   }

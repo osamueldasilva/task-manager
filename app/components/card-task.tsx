@@ -39,18 +39,18 @@ export function CardTasks({
     switch (priority) {
       case "Alta":
         return (
-          <>
+          <div className="flex">
             <span className="inline-block h-2 w-2 rounded-full mr-1 bg-red-600"></span>
             <span className="inline-block h-2 w-2 rounded-full mr-1 bg-red-600"></span>
             <span className="inline-block h-2 w-2 rounded-full mr-1 bg-red-600"></span>
-          </>
+          </div>
         );
       case "Média":
         return (
-          <>
+          <div className="flex">
             <span className="inline-block h-2 w-2 rounded-full mr-1 bg-yellow-400"></span>
             <span className="inline-block h-2 w-2 rounded-full mr-1 bg-yellow-400"></span>
-          </>
+          </div>
         );
       case "Baixa":
         return (
@@ -84,7 +84,7 @@ export function CardTasks({
                 <ModalConfirmDelete id={task} />
               </div>
             </div>
-            <p className=" mb-2">{task.description}</p>
+            <p className=" mb-2 truncate">{task.description}</p>
             <div className="flex items-center justify-between mb-2 ">
               <p className="text-sm">Prioridade: {task.priority}</p>
               <div>{renderPriorityBalls(task.priority)}</div>
@@ -93,9 +93,11 @@ export function CardTasks({
           </div>
         ))
       ) : (
-        <div className="flex flex-col gap-4 justify-center mt-10 items-center">
-          <CircleAlert className="w-40 h-40" />
-          <p>Não possui itens nesta coluna.</p>
+        <div className="flex flex-col  justify-center mt-10 items-center md:flex-col lg:gap-12">
+          <CircleAlert className="w-20 h-20 md:w-40 md:h-40 " />
+          <p className="text-center md:text-left">
+            Não possui itens nesta coluna.
+          </p>
         </div>
       )}
     </div>
