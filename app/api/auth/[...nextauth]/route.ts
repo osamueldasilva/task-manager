@@ -67,17 +67,11 @@ const handler = NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    maxAge: 30,
+    maxAge: 24 * 60 * 60,
   },
   jwt: {
-    maxAge: 30,
+    maxAge: 24 * 60 * 60,
   },
-  // session: {
-  //   maxAge: 24 * 60 * 60,
-  // },
-  // jwt: {
-  //   maxAge: 24 * 60 * 60,
-  // },
   callbacks: {
     async jwt({ user, token }) {
       if (user) {

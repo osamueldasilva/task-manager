@@ -12,8 +12,6 @@ export const metadata: Metadata = {
 
 export default async function TaskPage() {
   const { data, error } = await fetcher<Task>({ url: "/api/task" });
-  console.log("🚀 ~ TaskPage ~ data:", data);
-  console.log("🚀 ~ TaskPage ~ error:", error);
 
   return (
     <main>

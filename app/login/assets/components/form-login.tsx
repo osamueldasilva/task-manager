@@ -20,6 +20,7 @@ import { fetcher } from "@/lib/request";
 import { RegisterForm } from "@/types/request";
 import bcryptjs from "bcryptjs";
 import { toast } from "sonner";
+import { User } from "lucide-react";
 
 export default function FormLogin() {
   const form = useForm<LoginFormValues>({
@@ -82,7 +83,7 @@ export default function FormLogin() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-3/4 max-sm:w-11/12 px-4 flex flex-col gap-2"
+        className="w-96 max-sm:w-11/12 px-4 flex flex-col gap-2"
       >
         <FormField
           control={form.control}
@@ -132,12 +133,21 @@ export default function FormLogin() {
             Esqueceu a senha?
           </p>
         </div>
-        <Button
-          isLoading={isPending}
-          className="font-semibold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600"
-        >
-          Login
-        </Button>
+        <div className="flex flex-col gap-2 justify-center items-center">
+          <Button
+            isLoading={isPending}
+            className="font-semibold w-full text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600"
+          >
+            Login
+          </Button>
+          <Button
+            variant={"outline"}
+            isLoading={isPending}
+            className="font-semibold w-full text-white"
+          >
+            Criar Conta
+          </Button>
+        </div>
       </form>
     </Form>
   );
