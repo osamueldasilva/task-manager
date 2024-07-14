@@ -37,6 +37,7 @@ import { useTransition } from "react";
 import { poster } from "@/lib/request";
 import { useRouter } from "next/navigation";
 import ButtonSave from "@/app/components/button-save";
+import { signOut } from "next-auth/react";
 
 export function FormCreateTask() {
   const [isPending, startTransition] = useTransition();
@@ -63,12 +64,18 @@ export function FormCreateTask() {
         dueDate: formattedDate,
       };
 
-      const { data: response } = await poster({
+      const { data: response, error } = await poster({
         body,
         url: "/api/task",
         pathName: "/task",
       });
-      if (response.status === 200) {
+
+      if (error?.status === 401) {
+        toast.success(error.message);
+        signOut({ callbackUrl: "/login" });
+      }
+
+      if (response?.status === 200) {
         toast.success(response.message);
         push("/task");
       }

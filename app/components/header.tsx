@@ -1,19 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { ModeToggle } from "@/components/dark-mode/dark-mode";
 import { Button } from "@/components/ui/button";
 import { Quicksand } from "next/font/google";
-import { mockDataUser } from "../mocks/teste";
 import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { toast } from "sonner";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function Header() {
-  const data = mockDataUser;
   const pathName = usePathname();
   const session = useSession();
 

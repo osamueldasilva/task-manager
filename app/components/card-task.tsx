@@ -31,7 +31,7 @@ export function CardTasks({
     Baixa: 3,
   };
 
-  const sortedTask = tasks.sort(
+  const sortedTask = tasks?.sort(
     (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
   );
 
@@ -63,7 +63,7 @@ export function CardTasks({
 
   return (
     <div className="mt-4">
-      {tasks.length > 0 ? (
+      {tasks?.length > 0 ? (
         sortedTask.map((task) => (
           <div
             key={task.id}

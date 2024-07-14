@@ -1,7 +1,8 @@
 "use server";
 
-import axios from "axios";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import axios from "axios";
 
 export type FetcherResponse<T> = {
   data: T;
@@ -11,9 +12,23 @@ export type FetcherResponse<T> = {
 
 export async function fetcher<T>({
   url,
+  login = false,
 }: {
   url: string;
+  login?: boolean;
 }): Promise<FetcherResponse<T>> {
+  const session = await getServerSession();
+  console.log("🚀 ~ session:", session);
+  if (!session?.user && !login) {
+    return {
+      error: {
+        status: 401,
+        message: "Sua sessão expirou. Por favor, faça login novamente.",
+      },
+      data: undefined as T,
+    };
+  }
+
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
   try {
     const response = await axios.get<T>(urlData, {
@@ -24,21 +39,31 @@ export async function fetcher<T>({
 
     return { data: response.data };
   } catch (error) {
-    return { error, data: undefined as T };
+    return { data: undefined as T };
   }
 }
 
 export async function poster<T>({
   url,
   body,
-
   pathName,
 }: {
   url: string;
   body: any;
-
   pathName: string;
 }) {
+  const session = await getServerSession();
+  if (!session?.user) {
+    return {
+      error: {
+        status: 401,
+        message: "Sua sessão expirou. Por favor, faça login novamente.",
+      },
+      data: undefined as T,
+      success: false,
+    };
+  }
+
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
   try {
@@ -51,21 +76,31 @@ export async function poster<T>({
     revalidatePath(pathName);
     return { data: response.data, success: true };
   } catch (error) {
-    return { error, data: undefined as T, success: false };
+    return { data: undefined as T, success: false };
   }
 }
 
 export async function put<T>({
   url,
   body,
-
   pathName,
 }: {
   url: string;
   body: any;
-
   pathName: string;
 }) {
+  const session = await getServerSession();
+  if (!session?.user) {
+    return {
+      error: {
+        status: 401,
+        message: "Sua sessão expirou. Por favor, faça login novamente.",
+      },
+      data: undefined as T,
+      success: false,
+    };
+  }
+
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
   try {
@@ -78,21 +113,31 @@ export async function put<T>({
     revalidatePath(pathName);
     return { data: response.data, success: true };
   } catch (error) {
-    return { error, data: undefined as T, success: false };
+    return { data: undefined as T, success: false };
   }
 }
 
 export async function deleter<T>({
   url,
-
   pathName,
   body,
 }: {
   url: string;
-
   pathName: string;
   body: any;
 }) {
+  const session = await getServerSession();
+  if (!session?.user) {
+    return {
+      error: {
+        status: 401,
+        message: "Sua sessão expirou. Por favor, faça login novamente.",
+      },
+      data: undefined as T,
+      success: false,
+    };
+  }
+
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
 
   try {
@@ -108,6 +153,6 @@ export async function deleter<T>({
     }
     return { data: response.data, success: true };
   } catch (error) {
-    return { error, data: undefined as T, success: false };
+    return { data: undefined as T, success: false };
   }
 }

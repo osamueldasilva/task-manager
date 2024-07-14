@@ -36,6 +36,7 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { put } from "@/lib/request";
 import ButtonSave from "@/app/components/button-save";
+import { signOut } from "next-auth/react";
 
 export function FormEditTask({ data }: { data?: ObjectTask }) {
   console.log("🚀 ~ FormEditTask ~ data:", data);
@@ -71,12 +72,15 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
         status: data?.status,
       };
 
-      const { data: response } = await put({
+      const { data: response, error } = await put({
         body,
         url: "/api/task",
         pathName: "/task",
       });
-
+      if (error?.status === 401) {
+        toast.success(error.message);
+        signOut({ callbackUrl: "/login" });
+      }
       if (response.status === 200) {
         toast.success(response.message);
         push("/task");

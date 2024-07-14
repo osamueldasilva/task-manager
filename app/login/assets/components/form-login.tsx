@@ -34,7 +34,10 @@ export default function FormLogin() {
 
   function onSubmit(dataForm: LoginFormValues) {
     startTransition(async () => {
-      const { data } = await fetcher<RegisterForm[]>({ url: "/api/user" });
+      const { data } = await fetcher<RegisterForm[]>({
+        url: "/api/user",
+        login: true,
+      });
       const getInfosUser = data.find((vl) => vl.email === dataForm.email);
 
       if (!getInfosUser) {

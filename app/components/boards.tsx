@@ -42,9 +42,9 @@ export default function Boards({ data }: { data: ObjectTask[] }) {
     setDragOverColumn(null);
   }
 
-  const notStarted = tasks.filter((task) => task.status === "Não iniciado");
-  const inProgress = tasks.filter((task) => task.status === "Em andamento");
-  const concluded = tasks.filter((task) => task.status === "Concluído");
+  const notStarted = tasks?.filter((task) => task.status === "Não iniciado");
+  const inProgress = tasks?.filter((task) => task.status === "Em andamento");
+  const concluded = tasks?.filter((task) => task.status === "Concluído");
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function Boards({ data }: { data: ObjectTask[] }) {
       >
         <div className="rounded-2xl bg-blue-700  flex gap-4 px-4 items-center py-1">
           <div className="bg-white text-blue-700 w-7 flex justify-center rounded-full font-semibold">
-            {notStarted.length}
+            {notStarted?.length}
           </div>
           <h2 className="text-lg text-white truncate">Não Iniciado</h2>
         </div>
@@ -76,7 +76,7 @@ export default function Boards({ data }: { data: ObjectTask[] }) {
       >
         <div className="rounded-2xl bg-yellow-500 flex gap-4 px-4 items-center py-1">
           <div className="bg-white text-yellow-500 w-7 flex justify-center rounded-full font-semibold">
-            {inProgress.length}
+            {inProgress?.length}
           </div>
           <h2 className="text-lg text-white truncate">Em Andamento</h2>
         </div>
@@ -93,7 +93,7 @@ export default function Boards({ data }: { data: ObjectTask[] }) {
       >
         <div className="rounded-2xl bg-green-600 flex gap-4 px-4 items-center py-1">
           <div className="bg-white text-green-600 w-7 flex justify-center rounded-full font-semibold">
-            {concluded.length}
+            {concluded?.length}
           </div>
           <h2 className="text-lg text-white">Concluído</h2>
         </div>

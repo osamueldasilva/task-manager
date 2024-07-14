@@ -11,6 +11,7 @@ import {
 import { deleter } from "@/lib/request";
 import { ObjectTask } from "@/types/request";
 import { Loader, Trash2Icon } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useNavigation } from "react-day-picker";
@@ -22,12 +23,16 @@ export default function ModalConfirmDelete({ id }: { id: ObjectTask }) {
 
   function handleDelete() {
     startTransition(async () => {
-      const { data } = await deleter({
+      const { data, error } = await deleter({
         url: "/api/task",
         pathName: "/task",
 
         body: id,
       });
+      if (error?.status === 401) {
+        toast.success(error.message);
+        signOut({ callbackUrl: "/login" });
+      }
 
       if (data.status === 200) {
         toast.success(data.message);

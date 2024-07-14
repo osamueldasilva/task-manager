@@ -66,6 +66,18 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    maxAge: 30,
+  },
+  jwt: {
+    maxAge: 30,
+  },
+  // session: {
+  //   maxAge: 24 * 60 * 60,
+  // },
+  // jwt: {
+  //   maxAge: 24 * 60 * 60,
+  // },
   callbacks: {
     async jwt({ user, token }) {
       if (user) {
@@ -74,7 +86,9 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }) {
+      console.log("🚀 ~ session ~ session:", session);
       session.user = token;
+
       return session;
     },
   },

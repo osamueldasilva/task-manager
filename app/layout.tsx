@@ -4,8 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider/theme";
 import Header from "./components/header";
 import { Toaster } from "sonner";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { SessionProvider } from "next-auth/react";
+
 import ProviderSession from "@/providers/session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
