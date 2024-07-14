@@ -4,13 +4,16 @@ export type LoginForm = {
   password: string;
 };
 
-// Tipagens para o formulário de Cadastro
-export type RegisterForm = {
-  username: string;
-  email: string;
-  password: string;
+export interface RegisterForm {
+  id: number;
   name: string;
-};
+  email: string;
+  emailVerified: Date | null;
+  image: string | null;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 // Tipagens para o formulário de Criação de Tarefas
 export type CreateTaskForm = {

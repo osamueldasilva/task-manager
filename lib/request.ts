@@ -20,7 +20,6 @@ export async function fetcher<T>({
       headers: {
         "Cache-Control": "no-cache",
       },
-      params: {},
     });
 
     return { data: response.data };

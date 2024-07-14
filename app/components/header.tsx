@@ -5,11 +5,17 @@ import { ModeToggle } from "@/components/dark-mode/dark-mode";
 import { Button } from "@/components/ui/button";
 import { Quicksand } from "next/font/google";
 import { mockDataUser } from "../mocks/teste";
+import { usePathname } from "next/navigation";
+import { LogOut } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function Header() {
   const data = mockDataUser;
+  const pathName = usePathname();
+  const session = useSession();
 
   function getInitials(name: string) {
     const names = name.split(" ");
@@ -29,7 +35,7 @@ export default function Header() {
       .toUpperCase()}`;
   }
 
-  const initials = getInitials(data.name);
+  const initials = getInitials(session.data?.user?.name ?? "");
 
   const [isSticky, setIsSticky] = useState(false);
 
@@ -53,7 +59,7 @@ export default function Header() {
       className={`px-6 py-2 flex justify-between items-center transition-all duration-500 ${
         isSticky &&
         "sticky top-0 backdrop-filter backdrop-blur-md bg-transparent shadow-lg z-10"
-      }`}
+      } ${pathName === "/login" && "hidden"}`}
     >
       <h1 className={`text-3xl font-semibold ${quicksand.className}`}>
         TaskMaster
@@ -62,7 +68,14 @@ export default function Header() {
         <Button variant="outline" size="icon" className="rounded-full">
           {initials}
         </Button>
+
         <ModeToggle />
+        <Button variant="outline" size="icon" className="rounded-full">
+          <LogOut
+            className="h-[1.2rem] w-[1.2rem]"
+            onClick={() => signOut({ callbackUrl: "/login" })}
+          />
+        </Button>
       </div>
     </header>
   );
