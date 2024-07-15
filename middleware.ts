@@ -15,10 +15,17 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (req.nextUrl.pathname === "/") {
-    const url = req.nextUrl.clone();
-    url.pathname = "/task";
+    if (!token) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/login";
 
-    return NextResponse.redirect(url);
+      return NextResponse.redirect(url);
+    } else {
+      const url = req.nextUrl.clone();
+      url.pathname = "/task";
+
+      return NextResponse.redirect(url);
+    }
   }
 
   return NextResponse.next();
