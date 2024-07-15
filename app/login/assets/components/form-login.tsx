@@ -21,6 +21,7 @@ import { RegisterForm } from "@/types/request";
 import bcryptjs from "bcryptjs";
 import { toast } from "sonner";
 import { User } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function FormLogin() {
   const form = useForm<LoginFormValues>({
@@ -32,6 +33,7 @@ export default function FormLogin() {
   });
   const [isCapsLockOn, setIsCapsLockOn] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const { push } = useRouter();
 
   function onSubmit(dataForm: LoginFormValues) {
     startTransition(async () => {
@@ -135,6 +137,7 @@ export default function FormLogin() {
         </div>
         <div className="flex flex-col gap-2 justify-center items-center">
           <Button
+            type="submit"
             isLoading={isPending}
             className="font-semibold w-full text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600"
           >
@@ -142,8 +145,14 @@ export default function FormLogin() {
           </Button>
           <Button
             variant={"outline"}
+            type={"button"}
             isLoading={isPending}
-            className="font-semibold w-full text-white"
+            onClick={() =>
+              startTransition(() => {
+                push("/register");
+              })
+            }
+            className="font-semibold w-full"
           >
             Criar Conta
           </Button>

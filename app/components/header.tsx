@@ -7,7 +7,6 @@ import { Quicksand } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { toast } from "sonner";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
@@ -57,7 +56,7 @@ export default function Header() {
       className={`px-6 py-2 flex justify-between items-center transition-all duration-500 ${
         isSticky &&
         "sticky top-0 backdrop-filter backdrop-blur-md bg-transparent shadow-lg z-10"
-      } ${pathName === "/login" && "hidden"}`}
+      } ${pathName === ("/login" || "/register") && "hidden"}`}
     >
       <h1 className={`text-3xl font-semibold ${quicksand.className}`}>
         TaskMaster
