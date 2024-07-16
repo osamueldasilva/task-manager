@@ -12,6 +12,7 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function Header() {
   const pathName = usePathname();
+  console.log("🚀 ~ Header ~ pathName:", pathName);
   const session = useSession();
 
   function getInitials(name: string) {
@@ -56,7 +57,7 @@ export default function Header() {
       className={`px-6 py-2 flex justify-between items-center transition-all duration-500 ${
         isSticky &&
         "sticky top-0 backdrop-filter backdrop-blur-md bg-transparent shadow-lg z-10"
-      } ${pathName === ("/login" || "/register") && "hidden"}`}
+      }  ${pathName === "/login" || pathName === "/register" ? "hidden" : ""}`}
     >
       <h1 className={`text-3xl font-semibold ${quicksand.className}`}>
         TaskMaster
