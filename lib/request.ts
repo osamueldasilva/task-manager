@@ -47,13 +47,15 @@ export async function poster<T>({
   url,
   body,
   pathName,
+  login = false,
 }: {
   url: string;
   body: any;
   pathName: string;
+  login?: boolean;
 }) {
   const session = await getServerSession();
-  if (!session?.user) {
+  if (!session?.user && !login) {
     return {
       error: {
         status: 401,

@@ -15,11 +15,9 @@ import { useForm } from "react-hook-form";
 import { PasswordInput } from "@/components/ui/password";
 import { Button } from "@/components/ui/button";
 import { RegisterFormValues, resolver } from "@/schemas/register-user";
-import { signIn } from "next-auth/react";
-import { fetcher } from "@/lib/request";
-import { RegisterForm } from "@/types/request";
-
+import { poster } from "@/lib/request";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function FormRegister() {
   const form = useForm<RegisterFormValues>({
@@ -37,10 +35,26 @@ export default function FormRegister() {
 
   function onSubmit(dataForm: RegisterFormValues) {
     startTransition(async () => {
-      const { data } = await fetcher<RegisterForm[]>({
-        url: "/api/user",
+      const body = {
+        name: dataForm.name,
+        email: dataForm.email,
+        password: dataForm.password,
+      };
+
+      const { data, error } = await poster({
+        body,
+        url: "/api/user/register",
+        pathName: "",
         login: true,
       });
+      if (data?.status === 201) {
+        toast.success(data.message);
+        push("/login");
+      }
+      if (data.status === 601) {
+        toast.error(data.error);
+        return;
+      }
     });
   }
 
@@ -82,11 +96,7 @@ export default function FormRegister() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input
-                  autoFocus
-                  placeholder="Digite seu endereço de email"
-                  {...field}
-                />
+                <Input placeholder="Digite seu endereço de email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -104,7 +114,6 @@ export default function FormRegister() {
                   id="password"
                   value={field.value}
                   onChange={field.onChange}
-                  autoComplete="new-password"
                   onKeyUp={handleKeyUp}
                 />
               </FormControl>
@@ -130,7 +139,6 @@ export default function FormRegister() {
                   id="confirmPassword"
                   value={field.value}
                   onChange={field.onChange}
-                  autoComplete="new-password"
                   onKeyUp={handleKeyUp}
                 />
               </FormControl>

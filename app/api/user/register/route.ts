@@ -7,9 +7,6 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   const { name, email, password } = await request.json();
-  console.log("🚀 ~ POST ~ password:", password);
-  console.log("🚀 ~ POST ~ email:", email);
-  console.log("🚀 ~ POST ~ name:", name);
 
   if (!email || !password) {
     return NextResponse.json(
@@ -29,8 +26,14 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json({
+      message: "Conta criada com sucesso!",
+      status: 201,
+    });
   } catch (error) {
-    return NextResponse.json({ error: "Usuário já existe" }, { status: 400 });
+    return NextResponse.json({
+      error: "Este email já está cadastrado em nosso sistema.",
+      status: 601,
+    });
   }
 }

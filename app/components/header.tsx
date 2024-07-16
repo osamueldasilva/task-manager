@@ -12,7 +12,6 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function Header() {
   const pathName = usePathname();
-  console.log("🚀 ~ Header ~ pathName:", pathName);
   const session = useSession();
 
   function getInitials(name: string) {
