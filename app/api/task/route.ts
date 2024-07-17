@@ -1,21 +1,41 @@
 import prisma from "@/lib/prisma";
-import { Task } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { Task } from "@prisma/client";
 
 export async function GET(req: NextRequest) {
-  const task = await prisma.task.findMany();
+  const { searchParams } = new URL(req.url);
+  const userId = searchParams.get("userId");
+  console.log("🚀 ~ GET ~ userId:", userId);
 
-  return NextResponse.json({ task });
+  try {
+    if (!userId) {
+      return NextResponse.json({ message: "Não autorizado", status: 401 });
+    }
+
+    const tasks = await prisma.task.findMany({
+      where: { userId: parseInt(userId, 10) },
+    });
+
+    console.log("🚀 ~ GET ~ tasks:", tasks);
+
+    return NextResponse.json({ tasks });
+  } catch (error) {
+    console.error("🚀 ~ GET ~ error:", error);
+    return NextResponse.json({
+      message: "Erro ao buscar tarefas",
+      status: 500,
+    });
+  }
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { description, dueDate, priority, status, title }: Task =
+    const { description, dueDate, priority, title, userId }: Task =
       await req.json();
 
-    if (!description || !dueDate || !priority || !title) {
+    if (!description || !dueDate || !priority || !title || !userId) {
       return NextResponse.json(
-        { message: "Esta faltando informação no body. Por favor, verifique." },
+        { message: "Está faltando informação no body. Por favor, verifique." },
         { status: 400 }
       );
     }
@@ -38,6 +58,7 @@ export async function POST(req: NextRequest) {
         priority,
         status: "Não iniciado",
         title,
+        userId,
       },
     });
 
@@ -46,7 +67,6 @@ export async function POST(req: NextRequest) {
       status: 200,
     });
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error);
     return NextResponse.json(
       {
         message:
@@ -58,12 +78,16 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const { id } = await req.json();
+  const { id, userId } = await req.json();
+  if (!userId) {
+    return NextResponse.json({ message: "Não autorizado" }, { status: 401 });
+  }
 
   try {
-    const task = await prisma.task.delete({
+    const task = await prisma.task.deleteMany({
       where: {
         id,
+        userId,
       },
     });
     return NextResponse.json({
@@ -77,12 +101,20 @@ export async function DELETE(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const { id, description, dueDate, priority, status, title }: Task =
+    const { id, description, dueDate, priority, status, title, userId }: Task =
       await req.json();
 
-    if (!id || !description || !dueDate || !priority || !status || !title) {
+    if (
+      !id ||
+      !description ||
+      !dueDate ||
+      !priority ||
+      !status ||
+      !title ||
+      !userId
+    ) {
       return NextResponse.json(
-        { message: "Esta faltando informação no body. Por favor, verifique." },
+        { message: "Está faltando informação no body. Por favor, verifique." },
         { status: 400 }
       );
     }
@@ -109,8 +141,8 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    await prisma.task.update({
-      where: { id },
+    await prisma.task.updateMany({
+      where: { id, userId },
       data: {
         description,
         dueDate,

@@ -39,7 +39,6 @@ import ButtonSave from "@/app/components/button-save";
 import { signOut } from "next-auth/react";
 
 export function FormEditTask({ data }: { data?: ObjectTask }) {
-  console.log("🚀 ~ FormEditTask ~ data:", data);
   const [isPending, startTransition] = useTransition();
   const { push } = useRouter();
 

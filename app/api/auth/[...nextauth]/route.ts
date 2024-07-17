@@ -1,7 +1,15 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import { PrismaClient } from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession["user"];
+  }
+}
 
 const prisma = new PrismaClient();
 
@@ -73,17 +81,14 @@ const handler = NextAuth({
     maxAge: 24 * 60 * 60,
   },
   callbacks: {
-    async jwt({ user, token }) {
+    session: async ({ session, token }) => {
+      return session;
+    },
+    jwt: async ({ user, token }) => {
       if (user) {
-        token.id = user.id;
+        token.uid = user.id;
       }
       return token;
-    },
-    async session({ session, token }) {
-      console.log("🚀 ~ session ~ session:", session);
-      session.user = token;
-
-      return session;
     },
   },
 });

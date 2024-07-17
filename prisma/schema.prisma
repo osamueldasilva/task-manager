@@ -45,7 +45,20 @@ model User {
   updatedAt     DateTime  @default(now()) @updatedAt
   accounts      Account[]
   sessions      Session[]
+  tasks         Task[]
 }
+
+model Task {
+  id          Int     @default(autoincrement()) @id
+  title       String
+  description String
+  priority    String
+  dueDate     String
+  status      String
+  userId      Int
+  user        User    @relation(fields: [userId], references: [id])
+}
+
 
 
 model VerificationRequest {
@@ -59,11 +72,3 @@ model VerificationRequest {
   @@unique([identifier, token])
 }
 
-model Task {
-  id          Int    @default(autoincrement()) @id
-  title       String
-  description String 
-  priority    String 
-  dueDate     String
-  status      String
-}

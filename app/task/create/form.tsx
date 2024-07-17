@@ -37,11 +37,12 @@ import { useTransition } from "react";
 import { poster } from "@/lib/request";
 import { useRouter } from "next/navigation";
 import ButtonSave from "@/app/components/button-save";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export function FormCreateTask() {
   const [isPending, startTransition] = useTransition();
   const { push } = useRouter();
+  const session = useSession();
   const form = useForm<CreateTasks>({
     resolver,
     defaultValues: {
@@ -62,6 +63,8 @@ export function FormCreateTask() {
         description: data.description,
         priority: data.priority,
         dueDate: formattedDate,
+        // @ts-ignore
+        userId: +session.data?.user?.id,
       };
 
       const { data: response, error } = await poster({

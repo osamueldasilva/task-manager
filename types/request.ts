@@ -51,5 +51,5 @@ export type ObjectTask = {
 };
 
 export type Task = {
-  task: ObjectTask[];
+  tasks: ObjectTask[];
 };

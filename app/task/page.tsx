@@ -2,9 +2,8 @@ import { Metadata } from "next";
 import ButtonNavigate from "../components/button-navigate";
 import { fetcher } from "@/lib/request";
 import Boards from "../components/boards";
-import { Task } from "@/types/request";
-import { getServerSession } from "next-auth";
 import ButtonSignout from "../components/button-signout";
+import { Task } from "@/types/request";
 
 export const metadata: Metadata = {
   title: "Board",
@@ -21,7 +20,7 @@ export default async function TaskPage() {
             <ButtonNavigate value="Nova tarefa" />
           </header>
           <div className="grid grid-cols-3 gap-2 p-2">
-            <Boards data={data?.task} />
+            <Boards data={data.tasks} />
           </div>
         </>
       ) : (

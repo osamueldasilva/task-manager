@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getServerSession } from "next-auth";
+import { DefaultSession, getServerSession } from "next-auth";
 import axios from "axios";
 
 export type FetcherResponse<T> = {
@@ -30,16 +30,22 @@ export async function fetcher<T>({
   }
 
   const urlData = process.env.NEXT_PUBLIC_API_URL + url;
+
   try {
     const response = await axios.get<T>(urlData, {
       headers: {
         "Cache-Control": "no-cache",
       },
+      params: {
+        userId: "16",
+      },
     });
-
     return { data: response.data };
   } catch (error) {
-    return { data: undefined as T };
+    console.log("🚀 ~ fetcher ~ error:", error);
+    return {
+      data: undefined as T,
+    };
   }
 }
 

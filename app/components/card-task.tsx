@@ -94,7 +94,7 @@ export function CardTasks({
         ))
       ) : (
         <div className="flex flex-col  justify-center mt-10 items-center md:flex-col lg:gap-12">
-          <CircleAlert className="w-20 h-20 md:w-40 md:h-40 " />
+          <CircleAlert className="w-20 h-20 md:w-40 md:h-40 text-gray-400" />
           <p className="text-center md:text-left">
             Não possui itens nesta coluna.
           </p>
