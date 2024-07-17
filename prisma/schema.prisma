@@ -59,8 +59,6 @@ model Task {
   user        User    @relation(fields: [userId], references: [id])
 }
 
-
-
 model VerificationRequest {
   id         Int      @default(autoincrement()) @id
   identifier String

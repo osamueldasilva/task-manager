@@ -24,7 +24,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster />
+            <Toaster richColors />
             <Header />
             {children}
           </ThemeProvider>

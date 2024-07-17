@@ -95,7 +95,7 @@ export default function Boards({ data }: { data: ObjectTask[] }) {
           <div className="bg-white text-green-600 w-7 flex justify-center rounded-full font-semibold">
             {concluded?.length}
           </div>
-          <h2 className="text-lg text-white">Concluído</h2>
+          <h2 className="text-lg text-white truncate">Concluído</h2>
         </div>
         <CardTasks dragOverColumn={dragOverColumn} tasks={concluded} />
       </div>

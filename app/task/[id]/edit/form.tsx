@@ -36,11 +36,12 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { put } from "@/lib/request";
 import ButtonSave from "@/app/components/button-save";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export function FormEditTask({ data }: { data?: ObjectTask }) {
   const [isPending, startTransition] = useTransition();
   const { push } = useRouter();
+  const session = useSession();
 
   const defaultDueDate = data
     ? parse(data.dueDate, "dd/MM/yyyy", new Date())
@@ -69,6 +70,7 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
         priority: dataForm.priority,
         dueDate: formattedDate,
         status: data?.status,
+        userId: Number(session.data?.user.id),
       };
 
       const { data: response, error } = await put({
@@ -76,11 +78,12 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
         url: "/api/task",
         pathName: "/task",
       });
+
       if (error?.status === 401) {
         toast.success(error.message);
         signOut({ callbackUrl: "/login" });
       }
-      if (response.status === 200) {
+      if (response?.status === 200) {
         toast.success(response.message);
         push("/task");
       }

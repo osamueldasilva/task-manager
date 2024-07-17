@@ -110,10 +110,10 @@ export async function PUT(req: NextRequest) {
       !title ||
       !userId
     ) {
-      return NextResponse.json(
-        { message: "Está faltando informação no body. Por favor, verifique." },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        message: "Está faltando informação no body. Por favor, verifique.",
+        status: 400,
+      });
     }
 
     const validPriorities = ["Alta", "Média", "Baixa"];
