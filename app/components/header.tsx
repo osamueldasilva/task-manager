@@ -13,7 +13,6 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 export default function Header() {
   const pathName = usePathname();
   const session = useSession();
-  console.log("🚀 ~ Header ~ session:", session);
 
   function getInitials(name: string) {
     const names = name.split(" ");

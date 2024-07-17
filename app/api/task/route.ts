@@ -5,7 +5,6 @@ import { Task } from "@prisma/client";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const userId = searchParams.get("userId");
-  console.log("🚀 ~ GET ~ userId:", userId);
 
   try {
     if (!userId) {
@@ -15,8 +14,6 @@ export async function GET(req: NextRequest) {
     const tasks = await prisma.task.findMany({
       where: { userId: parseInt(userId, 10) },
     });
-
-    console.log("🚀 ~ GET ~ tasks:", tasks);
 
     return NextResponse.json({ tasks });
   } catch (error) {
