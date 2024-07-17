@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function EditTask({ params }: RequestParameters) {
   const { data } = await fetcher<Task>({ url: "/api/task" });
-  const response = data?.task?.find((vl) => vl.id === parseInt(params.id));
+  const response = data?.tasks?.find((vl) => vl.id === parseInt(params.id));
   return (
     <main className="flex flex-col items-center px-4 py-3 md:px-8 lg:px-16">
       <section className="w-full max-w-4xl">

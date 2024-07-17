@@ -18,7 +18,6 @@ export async function fetcher<T>({
   login?: boolean;
 }): Promise<FetcherResponse<T>> {
   const session = await getServerSession();
-  console.log("🚀 ~ session:", session);
   if (!session?.user && !login) {
     return {
       error: {
