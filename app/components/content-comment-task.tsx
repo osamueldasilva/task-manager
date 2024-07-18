@@ -19,10 +19,6 @@ export function ContentCommentTask({
 }) {
   const [openChange, setOpenChange] = useState("");
 
-  const handleCommentSaved = () => {
-    setOpenChange("");
-  };
-
   return (
     <>
       <Accordion
@@ -35,7 +31,7 @@ export function ContentCommentTask({
         <AccordionItem value="item-1">
           <AccordionTrigger>Adicionar Comentário</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-2 px-1 mt-1">
-            <CommentsForm taskId={taskId} onCommentSaved={handleCommentSaved} />
+            <CommentsForm taskId={taskId} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

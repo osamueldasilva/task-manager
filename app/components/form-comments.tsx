@@ -18,13 +18,7 @@ import { poster } from "@/lib/request";
 import { toast } from "sonner";
 import { signOut } from "next-auth/react";
 
-export function CommentsForm({
-  taskId,
-  onCommentSaved,
-}: {
-  taskId: number;
-  onCommentSaved: () => void;
-}) {
+export function CommentsForm({ taskId }: { taskId: number }) {
   const [charCount, setCharCount] = useState(0);
   const [isPending, startTransaction] = useTransition();
 
@@ -60,7 +54,6 @@ export function CommentsForm({
       if (response?.status === 204) {
         toast.success(response.message);
         form.reset({ comments: "" });
-        onCommentSaved();
         return;
       }
     });
