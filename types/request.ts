@@ -53,3 +53,15 @@ export type ObjectTask = {
 export type Task = {
   tasks: ObjectTask[];
 };
+
+export type ObjectComments = {
+  id: number;
+  comments: string;
+  createdAt: string;
+  updatedAt: string;
+  taskId: number;
+};
+
+export type Comments = {
+  comments: ObjectComments[];
+};

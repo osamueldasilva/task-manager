@@ -1,21 +1,21 @@
 "use client";
 
-import { ObjectTask } from "@/types/request";
+import { Comments, ObjectComments, ObjectTask } from "@/types/request";
 import { NavigateEdit } from "./button-navigate";
 import { useState } from "react";
 import { CircleAlert } from "lucide-react";
 import ModalConfirmDelete from "./modal-confirm-delete";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { DialogContent } from "@radix-ui/react-dialog";
+
 import ModalTask from "./modal-task";
 
 export function CardTasks({
   tasks,
   dragOverColumn,
+  comments,
 }: {
   tasks: ObjectTask[];
   dragOverColumn: string | null;
+  comments: ObjectComments[];
 }) {
   const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
 
@@ -96,7 +96,7 @@ export function CardTasks({
             <p className="text-sm  mb-2">Data de conclusão: {task.dueDate}</p>
 
             <div className="mb-2 flex gap-1 items-center">
-              <ModalTask data={task} />
+              <ModalTask data={task} comments={comments} />
             </div>
           </div>
         ))

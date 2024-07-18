@@ -76,17 +76,24 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   const { id, userId } = await req.json();
+
   if (!userId) {
     return NextResponse.json({ message: "Não autorizado" }, { status: 401 });
   }
 
   try {
-    const task = await prisma.task.deleteMany({
+    await prisma.comment.deleteMany({
+      where: {
+        taskId: id,
+      },
+    });
+    await prisma.task.deleteMany({
       where: {
         id,
         userId,
       },
     });
+
     return NextResponse.json({
       message: "Tarefa deletada com sucesso!",
       status: 200,

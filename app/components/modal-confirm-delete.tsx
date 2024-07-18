@@ -29,12 +29,14 @@ export default function ModalConfirmDelete({ id }: { id: ObjectTask }) {
 
         body: id,
       });
+
       if (error?.status === 401) {
         toast.success(error.message);
         signOut({ callbackUrl: "/login" });
+        return;
       }
 
-      if (data.status === 200) {
+      if (data?.status === 200) {
         toast.success(data.message);
         refresh();
         return;

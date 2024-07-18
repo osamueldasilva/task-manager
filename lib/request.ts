@@ -83,6 +83,7 @@ export async function poster<T>({
     });
 
     revalidatePath(pathName);
+
     return { data: response.data, success: true };
   } catch (error) {
     return { data: undefined as T, success: false };
