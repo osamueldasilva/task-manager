@@ -59,6 +59,8 @@ export function CommentsForm({
 
       if (response?.status === 204) {
         toast.success(response.message);
+        form.reset({ comments: "" });
+        onCommentSaved();
         return;
       }
     });
@@ -110,7 +112,7 @@ export function CommentsForm({
           <div className="w-full flex justify-end">
             <span>{charCount}/200 caracteres</span>
           </div>
-          <Button isLoading={isPending} type="submit">
+          <Button className="text-white" isLoading={isPending} type="submit">
             Salvar
           </Button>
         </div>

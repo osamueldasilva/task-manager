@@ -18,7 +18,6 @@ export async function GET(req: NextRequest) {
     }
     return NextResponse.json(comment, { status: 200 });
   } catch (error) {
-    console.error("Erro ao buscar comentário:", error);
     return NextResponse.json(
       { error: "Erro ao buscar comentário" },
       { status: 500 }
@@ -43,7 +42,6 @@ export async function PUT(req: NextRequest) {
     });
     return NextResponse.json(updatedComment, { status: 200 });
   } catch (error) {
-    console.error("Erro ao atualizar comentário:", error);
     return NextResponse.json(
       { error: "Erro ao atualizar comentário" },
       { status: 500 }
@@ -60,7 +58,6 @@ export async function DELETE(req: NextRequest) {
     });
     return NextResponse.json({}, { status: 204 });
   } catch (error) {
-    console.error("Erro ao deletar comentário:", error);
     return NextResponse.json(
       { error: "Erro ao deletar comentário" },
       { status: 500 }
