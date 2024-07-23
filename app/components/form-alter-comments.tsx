@@ -43,19 +43,19 @@ export function CommentsFormAlter({
         data: response,
         error,
       } = await put({
-        url: `/api/comments/id=`,
+        url: `/api/comments`,
         body: {
-          comments: data.comments,
-        },
-        params: {
           id: dataValue?.id,
+          taskId: dataValue?.taskId,
+          comments: data.comments,
+          createdAt: dataValue?.createdAt,
+          updatedAt: dataValue?.updatedAt,
         },
         pathName: "",
       });
-      console.log("response", response);
-      console.log("error", error);
+
       if (error?.status === 401) {
-        toast.success(error.message);
+        toast.error(error.message);
         signOut({ callbackUrl: "/login" });
         return;
       }
@@ -66,7 +66,6 @@ export function CommentsFormAlter({
       }
     });
   }
-
   function handleTextareaChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const valueLength = event.target.value.length;
 

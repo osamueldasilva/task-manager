@@ -113,14 +113,18 @@ export async function put<T>({
     };
   }
 
-  const urlData = process.env.NEXT_PUBLIC_API_URL + url;
+  let urlData = process.env.NEXT_PUBLIC_API_URL + url;
+
+  if (params) {
+    const queryParams = new URLSearchParams(params);
+    urlData += `?${queryParams.toString()}`;
+  }
 
   try {
     const response = await axios.put(urlData, body, {
       headers: {
         "Content-Type": "application/json",
       },
-      params: params,
     });
     revalidatePath(pathName);
     return { data: response.data, success: true };

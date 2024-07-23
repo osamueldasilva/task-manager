@@ -65,3 +65,32 @@ export async function POST(req: NextRequest) {
     });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  const { id, comments, taskId, createdAt, updatedAt }: Comment =
+    await req.json();
+
+  try {
+    await prisma.comment.updateMany({
+      where: { id, taskId },
+      data: {
+        comments,
+        createdAt,
+        updatedAt,
+      },
+    });
+
+    return NextResponse.json({
+      message: "Comentario atualizada com sucesso!",
+      status: 200,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message:
+          "Ocorreu um erro ao atualizar o comentario. Por favor, tente novamente mais tarde.",
+      },
+      { status: 500 }
+    );
+  }
+}
