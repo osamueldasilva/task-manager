@@ -73,12 +73,12 @@ export function CardTasks({
   }
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 max-sm:mt-2 max-sm:flex gap-2 overflow-auto">
       {tasks?.length > 0 ? (
         sortedTask.map((task) => (
           <div
             key={task.id}
-            className={`p-4 cursor-pointer rounded-lg border hover:border-blue-700 hover:bg-blue-700/10 shadow mb-4 transition-all duration-300 ease-in ${
+            className={`p-4 max-sm:min-w-80  max-sm:mb-0 cursor-pointer rounded-lg border hover:border-blue-700 hover:bg-blue-700/10 shadow mb-4 transition-all duration-300 ease-in ${
               draggingTaskId === task.id &&
               "border-2 border-blue-700 bg-blue-700/10"
             } ${dragOverColumn === task.status && "opacity-25"}`}
@@ -115,7 +115,7 @@ export function CardTasks({
           </div>
         ))
       ) : (
-        <div className="flex flex-col  justify-center mt-10 items-center md:flex-col lg:gap-12">
+        <div className="flex flex-col max-sm:hidden  max-sm:mt-0 justify-center mt-10 items-center md:flex-col lg:gap-12">
           <CircleAlert className="w-20 h-20 md:w-40 md:h-40 text-gray-400" />
           <p className="text-center md:text-left">
             Não possui itens nesta coluna.

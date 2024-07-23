@@ -19,7 +19,7 @@ export default async function TaskPage() {
           <header className="px-6">
             <ButtonNavigate value="Nova tarefa" />
           </header>
-          <div className="grid grid-cols-3 gap-2 p-2">
+          <div className="grid grid-cols-3 max-sm:gap-0 gap-2 p-2 max-sm:flex max-sm:flex-col">
             <Boards data={data.tasks} />
           </div>
         </>

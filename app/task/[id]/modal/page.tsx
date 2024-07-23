@@ -17,7 +17,7 @@ export default async function PageModal({ params }: RequestParameters) {
     <div className="mb-2 flex gap-1 items-center">
       <ModalTask
         data={task}
-        comments={commentsResponse.data.comments.toReversed()}
+        comments={commentsResponse.data.comments?.toReversed()}
       />
     </div>
   );
