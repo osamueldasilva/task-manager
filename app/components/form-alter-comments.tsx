@@ -14,18 +14,25 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { SchemaComments, resolver } from "@/schemas/comments";
-import { poster } from "@/lib/request";
+import { put } from "@/lib/request";
 import { toast } from "sonner";
 import { signOut } from "next-auth/react";
+import { ObjectComments } from "@/types/request";
 
-export function CommentsForm({ taskId }: { taskId?: number }) {
-  const [charCount, setCharCount] = useState(0);
+export function CommentsFormAlter({
+  dataValue,
+  handleCancelEdit,
+}: {
+  dataValue?: ObjectComments;
+  handleCancelEdit: () => void;
+}) {
+  const [charCount, setCharCount] = useState(dataValue?.comments?.length || 0);
   const [isPending, startTransaction] = useTransition();
 
   const form = useForm<SchemaComments>({
     resolver,
     defaultValues: {
-      comments: "",
+      comments: dataValue?.comments || "",
     },
   });
 
@@ -35,11 +42,13 @@ export function CommentsForm({ taskId }: { taskId?: number }) {
         success,
         data: response,
         error,
-      } = await poster({
-        url: "/api/comments",
+      } = await put({
+        url: `/api/comments/id=`,
         body: {
-          taskId,
           comments: data.comments,
+        },
+        params: {
+          id: dataValue?.id,
         },
         pathName: "",
       });
@@ -47,12 +56,11 @@ export function CommentsForm({ taskId }: { taskId?: number }) {
       if (error?.status === 401) {
         toast.success(error.message);
         signOut({ callbackUrl: "/login" });
-
         return;
       }
-      if (response?.status === 204) {
+      if (response?.status === 200) {
         toast.success(response.message);
-        form.reset({ comments: "" });
+        handleCancelEdit();
         return;
       }
     });
@@ -104,9 +112,18 @@ export function CommentsForm({ taskId }: { taskId?: number }) {
           <div className="w-full flex justify-end">
             <span>{charCount}/200 caracteres</span>
           </div>
-          <Button className="text-white" isLoading={isPending} type="submit">
-            Salvar
-          </Button>
+          <div className=" flex justify-end gap-2">
+            <Button
+              onClick={handleCancelEdit}
+              className="text-white bg-gray-400 hover:bg-gray-400/80"
+              type="button"
+            >
+              Cancelar
+            </Button>
+            <Button className="text-white" isLoading={isPending} type="submit">
+              Salvar
+            </Button>
+          </div>
         </div>
       </form>
     </Form>

@@ -11,9 +11,6 @@ export const metadata: Metadata = {
 
 export default async function TaskPage() {
   const { data, error } = await fetcher<Task>({ url: "/api/task" });
-  const { data: response } = await fetcher<Comments>({
-    url: "/api/comments",
-  });
 
   return (
     <main>
@@ -23,7 +20,7 @@ export default async function TaskPage() {
             <ButtonNavigate value="Nova tarefa" />
           </header>
           <div className="grid grid-cols-3 gap-2 p-2">
-            <Boards data={data.tasks} comments={response.comments} />
+            <Boards data={data.tasks} />
           </div>
         </>
       ) : (

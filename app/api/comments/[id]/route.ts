@@ -26,22 +26,36 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-  const { comments }: Comment = await req.json();
-  if (!comments) {
-    return NextResponse.json(
-      { error: "O conteúdo é obrigatório" },
-      { status: 400 }
-    );
-  }
   try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    console.log("🚀 ~ PUT ~ id:", id);
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "ID do comentário é obrigatório" },
+        { status: 400 }
+      );
+    }
+
+    const { comments }: { comments?: string } = await req.json();
+    if (!comments) {
+      return NextResponse.json(
+        { error: "O conteúdo é obrigatório" },
+        { status: 400 }
+      );
+    }
+
     const updatedComment = await prisma.comment.update({
       where: { id: Number(id) },
       data: { comments },
     });
-    return NextResponse.json(updatedComment, { status: 200 });
+    return NextResponse.json({
+      message: "Comentário aleterado com sucesso",
+      status: 200,
+    });
   } catch (error) {
+    console.error("Erro ao atualizar comentário:", error);
     return NextResponse.json(
       { error: "Erro ao atualizar comentário" },
       { status: 500 }

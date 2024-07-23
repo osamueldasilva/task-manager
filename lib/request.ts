@@ -94,10 +94,12 @@ export async function put<T>({
   url,
   body,
   pathName,
+  params,
 }: {
   url: string;
   body: any;
   pathName: string;
+  params?: any;
 }) {
   const session = await getServerSession();
   if (!session?.user) {
@@ -118,8 +120,8 @@ export async function put<T>({
       headers: {
         "Content-Type": "application/json",
       },
+      params: params,
     });
-
     revalidatePath(pathName);
     return { data: response.data, success: true };
   } catch (error) {

@@ -2,23 +2,24 @@
 
 import { Comments, ObjectComments, ObjectTask } from "@/types/request";
 import { NavigateEdit } from "./button-navigate";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { CircleAlert } from "lucide-react";
 import ModalConfirmDelete from "./modal-confirm-delete";
 
 import ModalTask from "./modal-task";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export function CardTasks({
   tasks,
   dragOverColumn,
-  comments,
 }: {
   tasks: ObjectTask[];
   dragOverColumn: string | null;
-  comments: ObjectComments[];
 }) {
   const [draggingTaskId, setDraggingTaskId] = useState<number | null>(null);
-
+  const [isPending, startTransition] = useTransition();
+  const { push } = useRouter();
   function handleDragStart(e: React.DragEvent<HTMLDivElement>, taskId: number) {
     e.dataTransfer.setData("taskId", taskId.toString());
 
@@ -65,6 +66,12 @@ export function CardTasks({
     }
   }
 
+  function handleNavigate(id: number) {
+    startTransition(() => {
+      push(`/task/${id}/modal`);
+    });
+  }
+
   return (
     <div className="mt-4">
       {tasks?.length > 0 ? (
@@ -96,7 +103,14 @@ export function CardTasks({
             <p className="text-sm  mb-2">Data de conclusão: {task.dueDate}</p>
 
             <div className="mb-2 flex gap-1 items-center">
-              <ModalTask data={task} comments={comments} />
+              <Button
+                isLoading={isPending}
+                variant={"outline"}
+                onClick={() => handleNavigate(task.id)}
+                className="w-full h-fit"
+              >
+                Visualizar
+              </Button>
             </div>
           </div>
         ))

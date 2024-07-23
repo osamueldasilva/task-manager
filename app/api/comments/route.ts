@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const newComment = await prisma.comment.create({
+    await prisma.comment.create({
       data: {
         comments,
         taskId: task.id,

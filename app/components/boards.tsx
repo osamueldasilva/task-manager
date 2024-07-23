@@ -6,13 +6,7 @@ import { useState } from "react";
 import { put } from "@/lib/request";
 import { toast } from "sonner";
 
-export default function Boards({
-  data,
-  comments,
-}: {
-  data: ObjectTask[];
-  comments: ObjectComments[];
-}) {
+export default function Boards({ data }: { data: ObjectTask[] }) {
   const [tasks, setTasks] = useState(() => data);
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
 
@@ -69,11 +63,7 @@ export default function Boards({
           </div>
           <h2 className="text-lg text-white truncate">Não Iniciado</h2>
         </div>
-        <CardTasks
-          comments={comments}
-          dragOverColumn={dragOverColumn}
-          tasks={notStarted}
-        />
+        <CardTasks dragOverColumn={dragOverColumn} tasks={notStarted} />
       </div>
       <div
         className={`p-2 rounded shadow-lg `}
@@ -90,11 +80,7 @@ export default function Boards({
           </div>
           <h2 className="text-lg text-white truncate">Em Andamento</h2>
         </div>
-        <CardTasks
-          comments={comments}
-          dragOverColumn={dragOverColumn}
-          tasks={inProgress}
-        />
+        <CardTasks dragOverColumn={dragOverColumn} tasks={inProgress} />
       </div>
       <div
         className={`p-2 rounded shadow-lg `}
@@ -111,11 +97,7 @@ export default function Boards({
           </div>
           <h2 className="text-lg text-white truncate">Concluído</h2>
         </div>
-        <CardTasks
-          comments={comments}
-          dragOverColumn={dragOverColumn}
-          tasks={concluded}
-        />
+        <CardTasks dragOverColumn={dragOverColumn} tasks={concluded} />
       </div>
     </>
   );
