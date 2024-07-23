@@ -9,6 +9,7 @@ import ModalConfirmDelete from "./modal-confirm-delete";
 import ModalTask from "./modal-task";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { SelectFormAlterStatus } from "./select-alter-task";
 
 export function CardTasks({
   tasks,
@@ -102,7 +103,8 @@ export function CardTasks({
             </div>
             <p className="text-sm  mb-2">Data de conclusão: {task.dueDate}</p>
 
-            <div className="mb-2 flex gap-1 items-center">
+            <div className="mb-2 flex max-sm:flex-col gap-1 items-center">
+              <SelectFormAlterStatus data={task} />
               <Button
                 isLoading={isPending}
                 variant={"outline"}
