@@ -11,7 +11,10 @@ import { useState } from "react";
 import { ObjectComments } from "@/types/request";
 import { CommentsFormAlter } from "./form-alter-comments";
 
-import { Edit } from "lucide-react";
+import { Edit, EllipsisVertical, Trash } from "lucide-react";
+import { DropdownMenuOptions } from "./dropdown-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 export function ContentCommentTask({
   taskId,
@@ -48,33 +51,44 @@ export function ContentCommentTask({
       </Accordion>
 
       {!openChange && (
-        <section className="flex flex-col gap-2 max-h-60 overflow-auto">
-          {comments?.map((value, index) => (
-            <div
-              key={index}
-              className="relative p-2 border rounded-lg bg-gray-300 dark:bg-gray-700 group"
-            >
-              {editingIndex === index ? (
-                <CommentsFormAlter
-                  dataValue={value}
-                  handleCancelEdit={handleCancelEdit}
-                />
-              ) : (
-                <div className="relative flex flex-col gap-4">
-                  <div className="absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Edit
-                      onClick={() => handleEditClick(index)}
-                      className="h-4 w-4 cursor-pointer hover:text-blue-500"
-                    />
-                  </div>
-                  <p className="break-words whitespace-pre-wrap transition-all duration-150 ease-in-out group-hover:mt-4">
-                    {value.comments}
-                  </p>
+        <ScrollArea className=" max-h-60">
+          <div className="flex gap-2 flex-col mb-2">
+            {comments?.map((value, index) => (
+              <div
+                key={index}
+                className="relative p-2 border rounded-lg bg-gray-300 dark:bg-gray-700 group"
+              >
+                <div className="w-full flex justify-end">
+                  <DropdownMenuOptions>
+                    <div className="flex flex-col gap-1">
+                      <DropdownMenuItem
+                        onClick={() => handleEditClick(index)}
+                        className="w-full text-white flex gap-2 bg-gray-500 hover:bg-gray-500/80"
+                      >
+                        <Edit className="h-4 w-4 cursor-pointer" />
+                        <p>Alterar</p>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="w-full flex gap-2 text-white bg-red-500 hover:bg-red-500/80">
+                        <Trash className="h-4 w-4 cursor-pointer" />
+                        <p>Deletar</p>
+                      </DropdownMenuItem>
+                    </div>
+                  </DropdownMenuOptions>
                 </div>
-              )}
-            </div>
-          ))}
-        </section>
+                {editingIndex === index ? (
+                  <CommentsFormAlter
+                    dataValue={value}
+                    handleCancelEdit={handleCancelEdit}
+                  />
+                ) : (
+                  <div className="flex flex-col gap-1">
+                    <p className="">{value.comments}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
       )}
     </>
   );
