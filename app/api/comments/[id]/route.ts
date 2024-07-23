@@ -32,6 +32,7 @@ export async function PUT(req: NextRequest) {
     console.log("🚀 ~ PUT ~ id:", id);
 
     if (!id) {
+      console.log("Erro: ID do comentário é obrigatório");
       return NextResponse.json(
         { error: "ID do comentário é obrigatório" },
         { status: 400 }
@@ -39,7 +40,10 @@ export async function PUT(req: NextRequest) {
     }
 
     const { comments }: { comments?: string } = await req.json();
+    console.log("🚀 ~ PUT ~ comments:", comments);
+
     if (!comments) {
+      console.log("Erro: O conteúdo é obrigatório");
       return NextResponse.json(
         { error: "O conteúdo é obrigatório" },
         { status: 400 }
@@ -50,12 +54,14 @@ export async function PUT(req: NextRequest) {
       where: { id: Number(id) },
       data: { comments },
     });
+    console.log("🚀 ~ PUT ~ updatedComment:", updatedComment);
+
     return NextResponse.json({
-      message: "Comentário aleterado com sucesso",
+      message: "Comentário alterado com sucesso",
       status: 200,
     });
   } catch (error) {
-    console.error("Erro ao atualizar comentário:", error);
+    console.log("Erro ao atualizar comentário:", error);
     return NextResponse.json(
       { error: "Erro ao atualizar comentário" },
       { status: 500 }
