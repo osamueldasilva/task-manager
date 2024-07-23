@@ -52,7 +52,8 @@ export function CommentsFormAlter({
         },
         pathName: "",
       });
-
+      console.log("response", response);
+      console.log("error", error);
       if (error?.status === 401) {
         toast.success(error.message);
         signOut({ callbackUrl: "/login" });
