@@ -161,6 +161,7 @@ export async function PUT(req: NextRequest) {
       status: 200,
     });
   } catch (error) {
+    console.error("Erro ao atualizar a tarefa:", error);
     return NextResponse.json(
       {
         message:
