@@ -131,11 +131,7 @@ export default function FormLogin() {
             </FormItem>
           )}
         />
-        <div className="flex justify-end">
-          <p className="underline font-light text-sm cursor-pointer hover:text-blue-700">
-            Esqueceu a senha?
-          </p>
-        </div>
+
         <div className="flex flex-col gap-2 justify-center items-center">
           <Button
             type="submit"
