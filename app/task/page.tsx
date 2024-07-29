@@ -13,7 +13,7 @@ export default async function TaskPage() {
   const { data, error } = await fetcher<Task>({ url: "/api/task" });
 
   return (
-    <main>
+    <main className="animate-fadeIn">
       {!error ? (
         <>
           <header className="px-6">

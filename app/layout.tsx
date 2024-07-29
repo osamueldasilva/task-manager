@@ -3,7 +3,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider/theme";
 import Header from "./components/header";
 import { Toaster } from "sonner";
-import { getServerSession } from "next-auth";
 
 import ProviderSession from "@/providers/session-provider";
 
@@ -24,7 +23,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster richColors />
+            <Toaster richColors position="top-center" />
             <Header />
             {children}
           </ThemeProvider>

@@ -30,11 +30,12 @@ export default function FormRegister() {
     },
   });
   const [isCapsLockOn, setIsCapsLockOn] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPendingRegister, startTransitionRegister] = useTransition();
+  const [isPendingBack, startTransitionBack] = useTransition();
   const { push } = useRouter();
 
   function onSubmit(dataForm: RegisterFormValues) {
-    startTransition(async () => {
+    startTransitionRegister(async () => {
       const body = {
         name: dataForm.name,
         email: dataForm.email,
@@ -51,7 +52,7 @@ export default function FormRegister() {
         toast.success(data.message);
         push("/login");
       }
-      if (data.status === 601) {
+      if (data?.status === 601) {
         toast.error(data.error);
         return;
       }
@@ -70,7 +71,7 @@ export default function FormRegister() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-96 max-sm:w-11/12 px-4 flex flex-col gap-2"
+        className="w-96 max-md:w-11/12 px-4 flex flex-col gap-2"
       >
         <FormField
           control={form.control}
@@ -156,17 +157,17 @@ export default function FormRegister() {
         <div className="flex flex-col gap-2 justify-center items-center">
           <Button
             type="submit"
-            isLoading={isPending}
-            className="font-semibold w-full text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600"
+            isLoading={isPendingRegister}
+            className="font-semibold w-full text-white bg-blue-700 hover:bg-blue-700/80 focus:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-500/80 dark:focus:bg-blue-600"
           >
             Registrar
           </Button>
           <Button
             variant={"outline"}
             type={"button"}
-            isLoading={isPending}
+            isLoading={isPendingBack}
             onClick={() =>
-              startTransition(() => {
+              startTransitionBack(() => {
                 push("/login");
               })
             }

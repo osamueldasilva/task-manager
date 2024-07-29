@@ -4,7 +4,7 @@ import { useState, useEffect, use } from "react";
 import { ModeToggle } from "@/components/dark-mode/dark-mode";
 import { Button } from "@/components/ui/button";
 import { Quicksand } from "next/font/google";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 
@@ -13,6 +13,7 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 export default function Header() {
   const pathName = usePathname();
   const session = useSession();
+  const { push } = useRouter();
 
   function getInitials(name: string) {
     const names = name.split(" ");
@@ -58,7 +59,10 @@ export default function Header() {
         "sticky top-0 backdrop-filter backdrop-blur-md bg-transparent shadow-lg z-10"
       }  ${pathName === "/login" || pathName === "/register" ? "hidden" : ""}`}
     >
-      <h1 className={`text-3xl font-semibold ${quicksand.className}`}>
+      <h1
+        className={`text-3xl font-semibold ${quicksand.className} cursor-pointer`}
+        onClick={() => push("/task")}
+      >
         TaskMaster
       </h1>
       <div className="flex gap-2 items-center">

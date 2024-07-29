@@ -57,6 +57,12 @@ export function FormEditTask({ data }: { data?: ObjectTask }) {
     },
   });
 
+  if (!data) {
+    toast.warning("Tarefa inexistente!");
+    push("/task");
+    return null;
+  }
+
   function onSubmit(dataForm: CreateTasks) {
     startTransition(async () => {
       const formattedDate = format(dataForm.dataConclusion, "dd/MM/yyyy", {

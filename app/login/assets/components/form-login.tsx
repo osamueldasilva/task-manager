@@ -32,11 +32,12 @@ export default function FormLogin() {
     },
   });
   const [isCapsLockOn, setIsCapsLockOn] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPendingLogin, startTransitionLogin] = useTransition();
+  const [isPendingRegister, startTransitionRegister] = useTransition();
   const { push } = useRouter();
 
   function onSubmit(dataForm: LoginFormValues) {
-    startTransition(async () => {
+    startTransitionLogin(async () => {
       const { data } = await fetcher<RegisterForm[]>({
         url: "/api/user",
         login: true,
@@ -85,7 +86,7 @@ export default function FormLogin() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-96 max-sm:w-11/12 px-4 flex flex-col gap-2"
+        className="w-96 max-md:w-11/12 px-4 flex flex-col gap-2"
       >
         <FormField
           control={form.control}
@@ -138,17 +139,17 @@ export default function FormLogin() {
         <div className="flex flex-col gap-2 justify-center items-center">
           <Button
             type="submit"
-            isLoading={isPending}
-            className="font-semibold w-full text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600"
+            isLoading={isPendingLogin}
+            className="font-semibold w-full text-white bg-blue-700 hover:bg-blue-700/80 focus:bg-blue-800 dark:bg-blue-500 dark:hover:bg-blue-500/80 dark:focus:bg-blue-600"
           >
             Login
           </Button>
           <Button
             variant={"outline"}
             type={"button"}
-            isLoading={isPending}
+            isLoading={isPendingRegister}
             onClick={() =>
-              startTransition(() => {
+              startTransitionRegister(() => {
                 push("/register");
               })
             }

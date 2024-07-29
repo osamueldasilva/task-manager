@@ -12,7 +12,7 @@ export default async function EditTask({ params }: RequestParameters) {
   const { data } = await fetcher<Task>({ url: "/api/task" });
   const response = data?.tasks?.find((vl) => vl.id === parseInt(params.id));
   return (
-    <main className="flex flex-col items-center px-4 py-3 md:px-8 lg:px-16">
+    <main className="flex flex-col items-center px-4 py-3 md:px-8 lg:px-16 animate-fadeIn">
       <section className="w-full max-w-4xl">
         <header className="w-full flex justify-center mb-8">
           <div className="flex flex-col justify-center items-center text-center">

@@ -55,7 +55,9 @@ export default function ModalTask({
         className="max-h-[calc(100vh-100px)] max-w-[95%] sm:max-w-[95%] md:max-w-[70%] lg:max-w-[60%]"
       >
         <DialogHeader>
-          <h2 className="text-lg font-bold">{data?.title}</h2>
+          <h2 className="text-lg font-bold truncate max-w-[calc(100%-7rem)]">
+            {data?.title}
+          </h2>
           <DialogDescription>{data?.description}</DialogDescription>
         </DialogHeader>
 

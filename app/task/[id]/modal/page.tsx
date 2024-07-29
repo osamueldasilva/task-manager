@@ -14,7 +14,7 @@ export default async function PageModal({ params }: RequestParameters) {
   );
 
   return (
-    <div className="mb-2 flex gap-1 items-center">
+    <div className="mb-2 flex gap-1 items-center animate-fadeIn">
       <ModalTask
         data={task}
         comments={commentsResponse.data.comments?.toReversed()}
