@@ -173,7 +173,7 @@ export default function FormRegister() {
             }
             className="font-semibold w-full"
           >
-            Voltar
+            Login
           </Button>
         </div>
       </form>
