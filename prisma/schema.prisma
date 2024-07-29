@@ -46,7 +46,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
   tasks         Task[]
-  passwordResetTokens PasswordResetToken[]
 }
 
 
@@ -82,12 +81,3 @@ model Comment {
   task      Task     @relation(fields: [taskId], references: [id])
 }
 
-model PasswordResetToken {
-  id          Int      @default(autoincrement()) @id
-  token       String   @unique
-  userId      Int
-  expiresAt   DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id])
-}
