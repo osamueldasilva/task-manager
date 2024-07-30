@@ -50,3 +50,6 @@ TaskManager é um sistema de gerenciamento de tarefas que permite aos usuários 
 3. Para editar um comentário, clique no ícone de edição ao lado do comentário.
 4. Para excluir um comentário, clique no ícone de lixeira ao lado do comentário.
 
+## Acesse o Projeto
+
+Você pode acessar o projeto em funcionamento através do seguinte link: [TaskManager](https://task-manager-seven-steel.vercel.app/)
