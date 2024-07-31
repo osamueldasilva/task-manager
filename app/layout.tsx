@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider/theme";
 import Header from "./components/header";
 import { Toaster } from "sonner";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import ProviderSession from "@/providers/session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,6 +16,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <SpeedInsights />
         <ProviderSession>
           <ThemeProvider
             attribute="class"
