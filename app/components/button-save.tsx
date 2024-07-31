@@ -40,7 +40,7 @@ export default function ButtonSave({
           Salvar
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent closeButton>
         <DialogHeader>
           {actionMessage[action].title}
           <DialogDescription>

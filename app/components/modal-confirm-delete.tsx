@@ -52,7 +52,7 @@ export default function ModalConfirmDelete({ id }: { id: ObjectTask }) {
           <Trash2Icon className="h-4 w-4 cursor-pointer hover:text-red-500" />
         )}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent closeButton>
         <DialogHeader>
           Deletar tarefa
           <DialogDescription>

@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ContentCommentTask } from "./content-comment-task";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, ArrowLeft, Loader } from "lucide-react";
+import { ArrowLeft, Loader } from "lucide-react";
 import { useTransition } from "react";
 
 export default function ModalTask({
@@ -33,15 +33,18 @@ export default function ModalTask({
 
   return (
     <Dialog modal open>
-      <DialogContent
-        closeButton={
+      <DialogContent className="max-h-[calc(100vh-100px)] max-w-[95%] sm:max-w-[95%] md:max-w-[70%] lg:max-w-[60%]">
+        <DialogHeader className="flex flex-row gap-2 items-center justify-between ">
+          <h2 className="text-lg font-bold truncate max-w-[80%]">
+            {data?.title}
+          </h2>
           <Button
             onClick={() =>
               startTransition(() => {
                 push("/task");
               })
             }
-            className="flex gap-1"
+            className="flex gap-1 w-fit"
             variant={"ghost"}
           >
             {isPending ? (
@@ -51,15 +54,9 @@ export default function ModalTask({
             )}
             Voltar
           </Button>
-        }
-        className="max-h-[calc(100vh-100px)] max-w-[95%] sm:max-w-[95%] md:max-w-[70%] lg:max-w-[60%]"
-      >
-        <DialogHeader>
-          <h2 className="text-lg font-bold truncate max-w-[calc(100%-7rem)]">
-            {data?.title}
-          </h2>
-          <DialogDescription>{data?.description}</DialogDescription>
         </DialogHeader>
+
+        <DialogDescription>{data?.description}</DialogDescription>
 
         <ContentCommentTask taskId={data?.id} comments={verifyData} />
       </DialogContent>
