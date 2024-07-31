@@ -21,14 +21,17 @@ export const schemaRegisterForm = z
   .object({
     email: z
       .string({ required_error: messages.email })
+      .trim()
       .min(1, { message: messages.email })
       .email("Endereço de email inválido."),
     password: passwordSchema,
     confirmPassword: z
       .string({ required_error: messages.confirmPassword })
+      .trim()
       .min(1, { message: messages.confirmPassword }),
     name: z
       .string({ required_error: messages.name })
+      .trim()
       .min(1, { message: messages.name }),
   })
   .refine((data) => data.password === data.confirmPassword, {

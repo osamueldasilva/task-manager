@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const messages = {
   title: "O título da tarefa é obrigatório.",
-  description: "A descrição da tarefa é obrigatório.",
+  description: "A descrição da tarefa é obrigatória.",
   priority: "É obrigatório selecionar a prioridade.",
   dataConclusion: "É obrigatório selecionar a data para conclusão.",
 };
@@ -11,9 +11,11 @@ const messages = {
 export const schemaCreateTask = z.object({
   title: z
     .string({ required_error: messages.title })
+    .trim()
     .min(1, { message: messages.title }),
   description: z
     .string({ required_error: messages.description })
+    .trim()
     .min(1, { message: messages.description }),
   priority: z
     .string({ required_error: messages.priority })

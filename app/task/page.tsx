@@ -3,7 +3,7 @@ import ButtonNavigate from "../components/button-navigate";
 import { fetcher } from "@/lib/request";
 import Boards from "../components/boards";
 import ButtonSignout from "../components/button-signout";
-import { Comments, Task } from "@/types/request";
+import { Task } from "@/types/request";
 
 export const metadata: Metadata = {
   title: "Board",

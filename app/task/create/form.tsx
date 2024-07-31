@@ -63,8 +63,7 @@ export function FormCreateTask() {
         description: data.description,
         priority: data.priority,
         dueDate: formattedDate,
-        // @ts-ignore
-        userId: +session.data?.user?.id,
+        userId: Number(session.data?.user?.id),
       };
 
       const { data: response, error } = await poster({
