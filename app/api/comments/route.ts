@@ -94,3 +94,21 @@ export async function PUT(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const { id }: Comment = await req.json();
+  try {
+    await prisma.comment.delete({
+      where: { id: Number(id) },
+    });
+    return NextResponse.json({
+      message: "Comentario deletado com sucesso!",
+      status: 200,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Erro ao deletar comentário" },
+      { status: 500 }
+    );
+  }
+}

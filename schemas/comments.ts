@@ -9,8 +9,8 @@ const messages = {
 export const schemaComments = z.object({
   comments: z
     .string({ required_error: messages.comments })
-    .min(1, { message: messages.comments })
     .trim()
+    .min(1, { message: messages.comments })
     .max(200, { message: messages.commentsLength }),
 });
 

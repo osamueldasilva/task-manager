@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CommentsForm } from "./form-comments";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { ObjectComments } from "@/types/request";
 import { CommentsFormAlter } from "./form-alter-comments";
 
@@ -15,6 +15,9 @@ import { Edit, EllipsisVertical, Trash } from "lucide-react";
 import { DropdownMenuOptions } from "./dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
+import { signOut } from "next-auth/react";
+import { deleter } from "@/lib/request";
 
 export function ContentCommentTask({
   taskId,
@@ -24,6 +27,7 @@ export function ContentCommentTask({
   comments?: ObjectComments[];
 }) {
   const [openChange, setOpenChange] = useState("");
+  const [isPending, startTransaction] = useTransition();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   function handleEditClick(index: number) {
     setEditingIndex(index);
@@ -31,6 +35,34 @@ export function ContentCommentTask({
 
   function handleCancelEdit() {
     setEditingIndex(null);
+  }
+
+  function handleDeleteComment(id: number) {
+    startTransaction(async () => {
+      const {
+        success,
+        data: response,
+        error,
+      } = await deleter({
+        url: "/api/comments",
+        body: {
+          id,
+        },
+        pathName: "",
+      });
+
+      if (error?.status === 401) {
+        toast.success(error.message);
+        signOut({ callbackUrl: "/login" });
+
+        return;
+      }
+
+      if (response?.status === 200) {
+        toast.success(response.message);
+        return;
+      }
+    });
   }
 
   return (
@@ -68,7 +100,10 @@ export function ContentCommentTask({
                         <Edit className="h-4 w-4 cursor-pointer" />
                         <p>Alterar</p>
                       </DropdownMenuItem>
-                      <DropdownMenuItem className="w-full flex gap-2 text-white bg-red-500 hover:bg-red-500/80">
+                      <DropdownMenuItem
+                        onClick={() => handleDeleteComment(value.id)}
+                        className="w-full flex gap-2 text-white bg-red-500 hover:bg-red-500/80 "
+                      >
                         <Trash className="h-4 w-4 cursor-pointer" />
                         <p>Deletar</p>
                       </DropdownMenuItem>
