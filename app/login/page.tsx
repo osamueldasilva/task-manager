@@ -1,12 +1,14 @@
 import React from "react";
 import FormLogin from "./assets/components/form-login";
 import { Quicksand } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function PageLogin() {
   return (
     <section className="flex">
+      <SpeedInsights />
       <div className="w-full h-screen flex max-md:flex-col justify-center items-center max-md:bg-gradient-to-r max-md:from-blue-600">
         <div className="w-full h-full bg-gradient-to-r from-blue-600 flex justify-center flex-col items-center max-md:hidden animate-fadeIn">
           <h2 className={`text-3xl font-bold mb-4 ${quicksand.className}`}>

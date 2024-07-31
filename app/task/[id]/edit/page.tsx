@@ -3,6 +3,7 @@ import { FormEditTask } from "./form";
 import { RequestParameters } from "@/types/general";
 import { Task } from "@/types/request";
 import { fetcher } from "@/lib/request";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Editar Tarefa",
@@ -13,6 +14,7 @@ export default async function EditTask({ params }: RequestParameters) {
   const response = data?.tasks?.find((vl) => vl.id === parseInt(params.id));
   return (
     <main className="flex flex-col items-center px-4 py-3 md:px-8 lg:px-16 animate-fadeIn">
+      <SpeedInsights />
       <section className="w-full max-w-4xl">
         <header className="w-full flex justify-center mb-8">
           <div className="flex flex-col justify-center items-center text-center">

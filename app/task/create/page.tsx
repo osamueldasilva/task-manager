@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { FormCreateTask } from "./form";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Criar Nova Tarefa",
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 export default function CreateTask() {
   return (
     <main className="flex flex-col items-center px-4 py-3 md:px-8 lg:px-16 animate-fadeIn">
+      <SpeedInsights />
       <section className="w-full max-w-4xl">
         <header className="w-full flex justify-center mb-8">
           <div className="flex flex-col justify-center items-center text-center">

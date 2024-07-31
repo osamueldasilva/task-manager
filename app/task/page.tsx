@@ -4,6 +4,7 @@ import { fetcher } from "@/lib/request";
 import Boards from "../components/boards";
 import ButtonSignout from "../components/button-signout";
 import { Task } from "@/types/request";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Board",
@@ -14,6 +15,7 @@ export default async function TaskPage() {
 
   return (
     <main className="animate-fadeIn">
+      <SpeedInsights />
       {!error ? (
         <>
           <header className="px-6">

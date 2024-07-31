@@ -1,12 +1,14 @@
 import React from "react";
 import FormRegister from "./assets/components/form-register";
 import { Quicksand } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 
 export default function PageRegister() {
   return (
     <section className="flex">
+      <SpeedInsights />
       <div className="w-full h-screen flex max-md:flex-col justify-center items-center max-md:bg-gradient-to-r max-md:from-blue-600">
         <div className="hidden max-md:flex animate-fadeIn">
           <h2 className={`text-3xl font-bold mb-6 ${quicksand.className}`}>
